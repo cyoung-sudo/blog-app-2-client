@@ -1,0 +1,26 @@
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: var(--footer-height);
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  background-color: var(--theme-color-1);
+}
+
+#footer {
+  > ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

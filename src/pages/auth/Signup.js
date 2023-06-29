@@ -1,4 +1,4 @@
-import "./Signup.css";
+import "./Signup.scss";
 // Components
 import AuthForm from "../../components/forms/AuthForm";
 

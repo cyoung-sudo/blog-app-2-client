@@ -1,28 +1,31 @@
-import "./AuthForm.css";
+import "./AuthForm.scss";
+// Bootstrap
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 const AuthForm = (setUsername, setPassword, handleSubmit) => {
   return (
-    <form id="authForm" onSubmit={ handleSubmit }>
-      <div className="authForm-group">
-        <label>Username</label>
-        <input 
-          onChange={e => setUsername(e.target.value) }
+    <Form onSubmit={ handleSubmit }>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Username</Form.Label>
+        <Form.Control 
+          onChange={e => setUsername(e.target.value)}
           type="text"
-          placeholder="username"/>
-      </div>
+          placeholder="Username" />
+      </Form.Group>
 
-      <div className="authForm-group">
-        <label>Password</label>
-        <input
-          onChange={e => setPassword(e.target.value) }
-          type="password" 
-          placeholder="password"/>
-      </div>
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control
+          onChange={e => setPassword(e.target.value)}
+          type="password"
+          placeholder="Password" />
+      </Form.Group>
 
-      <div className="authForm-submit">
-        <input type="submit" value="Submit"/>
-      </div>
-    </form>
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+    </Form>
   )
 }
 

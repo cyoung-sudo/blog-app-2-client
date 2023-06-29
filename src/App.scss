@@ -1,0 +1,9 @@
+#app {
+  position: relative;
+  min-height: 100vh;
+}
+
+#app-content {
+  padding-top: 55px; // NavigationBar height
+  padding-bottom: 110px; // Footer height
+}
