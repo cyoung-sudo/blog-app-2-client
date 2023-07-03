@@ -3,7 +3,7 @@ import "./AuthForm.scss";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-const AuthForm = (setUsername, setPassword, handleSubmit) => {
+const AuthForm = ({ setUsername, setPassword, handleSubmit }) => {
   return (
     <Form onSubmit={ handleSubmit }>
       <Form.Group className="mb-3" controlId="formBasicEmail">

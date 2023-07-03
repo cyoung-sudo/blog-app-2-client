@@ -19,6 +19,12 @@ module.exports = {
     },
     port: 3000,
     historyApiFallback: true,
+    proxy: {
+      "/api": {
+        target: "http://localhost:3000",
+        router: () => "http://localhost:5050"
+      }
+    }
   },
   module: {
     // exclude node_modules
