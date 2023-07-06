@@ -1,13 +1,43 @@
 import "./NavigationBar.scss";
+// React
+import { useEffect } from "react";
+// Routing
+import { useNavigate } from "react-router-dom";
+// Redux
+import { useSelector, useDispatch } from "react-redux";
+import { resetAuthUser } from "../../reducers/sessionSlice";
+// APIs
+import AuthAPI from "../../apis/AuthAPI";
 // Bootstrap
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
 // Bootstrap Routing
-import { LinkContainer } from 'react-router-bootstrap';
+import { LinkContainer } from "react-router-bootstrap";
 
 const NavigationBar = () => {
+  const { authUser } = useSelector(state => state.session);
+  // Hooks
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  //----- Handle user logout
+  const handleLogout = () => {
+    // Logout user
+    AuthAPI.logout()
+    .then(res => {
+      if(res.data.success) {
+        console.log("Logged out");
+
+        // Reset authenticated user state
+        dispatch(resetAuthUser());
+        navigate("/");
+      }
+    })
+    .catch(err => console.log(err));
+  };
+
   return (
     <Navbar expand="lg" data-bs-theme="dark" className="navbar-custom">
       <Container>
@@ -27,21 +57,29 @@ const NavigationBar = () => {
               <Nav.Link>Posts</Nav.Link>
             </LinkContainer>
 
-            <NavDropdown title="Login / Signup" id="basic-nav-dropdown">
-              <LinkContainer to="/login">
-                <NavDropdown.Item>Login</NavDropdown.Item>
-              </LinkContainer>
+            {!authUser &&
+              <NavDropdown title="Login / Signup" id="basic-nav-dropdown">
+                <LinkContainer to="/login">
+                  <NavDropdown.Item>Login</NavDropdown.Item>
+                </LinkContainer>
 
-              <LinkContainer to="/signup">
-                <NavDropdown.Item>Signup</NavDropdown.Item>
-              </LinkContainer>
+                <LinkContainer to="/signup">
+                  <NavDropdown.Item>Signup</NavDropdown.Item>
+                </LinkContainer>
 
-              <NavDropdown.Divider />
+                <NavDropdown.Divider />
 
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown>
+                <NavDropdown.Item href="#action/3.4">
+                  Separated link
+                </NavDropdown.Item>
+              </NavDropdown>
+            }
+
+            {authUser &&
+              <button onClick={ handleLogout }>
+                Logout
+              </button>
+            }
           </Nav>
         </Navbar.Collapse>
       </Container>
