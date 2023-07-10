@@ -24,7 +24,17 @@ const PostAPI = {
     });
 
     return res;
-  }
+  },
+
+  //----- Retrieve all user posts
+  getForUser: async userId => {
+    const res = await api.request({
+      method: "GET",
+      url: `/api/posts/user/${ userId }`
+    });
+
+    return res;
+  },
 };
 
 export default PostAPI;

@@ -1,5 +1,6 @@
 .navbar-custom {
   position: absolute;
+  z-index: 1; /* make navbar ontop of everything */
   min-height: var(--navigationBar-height);
   width: 100%;
   background-color: var(--theme-color-1);

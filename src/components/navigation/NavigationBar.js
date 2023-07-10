@@ -1,6 +1,4 @@
 import "./NavigationBar.scss";
-// React
-import { useEffect } from "react";
 // Routing
 import { useNavigate } from "react-router-dom";
 // Redux
@@ -53,6 +51,10 @@ const NavigationBar = () => {
               <Nav.Link>Home</Nav.Link>
             </LinkContainer>
 
+            <LinkContainer to="/users">
+              <Nav.Link>Users</Nav.Link>
+            </LinkContainer>
+
             {!authUser &&
               <LinkContainer to="/posts">
                 <Nav.Link>Posts</Nav.Link>
@@ -67,6 +69,18 @@ const NavigationBar = () => {
 
                 <LinkContainer to="/posts/new">
                   <NavDropdown.Item>New Post</NavDropdown.Item>
+                </LinkContainer>
+              </NavDropdown>
+            }
+
+            {authUser &&
+              <NavDropdown title="Account" id="basic-nav-dropdown">
+                <LinkContainer to={ `/users/${ authUser._id }` }>
+                  <NavDropdown.Item>Profile</NavDropdown.Item>
+                </LinkContainer>
+
+                <LinkContainer to="/">
+                  <NavDropdown.Item>Settings</NavDropdown.Item>
                 </LinkContainer>
               </NavDropdown>
             }
