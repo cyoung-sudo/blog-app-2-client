@@ -12,6 +12,8 @@ import AuthAPI from "./apis/AuthAPI";
 import Home from "./pages/home/Home";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
+import AllPosts from "./pages/posts/AllPosts";
+import NewPost from "./pages/posts/NewPost";
 // Components
 import NavigationBar from "./components/navigation/NavigationBar";
 import Footer from "./components/navigation/Footer";
@@ -44,8 +46,12 @@ const App = () => {
         {!loading &&
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Signup />} />
+            <Route path="posts">
+              <Route index element={<AllPosts />} />
+              <Route path="new" element={<NewPost />} />
+            </Route>
           </Routes>
         }
 

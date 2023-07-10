@@ -53,9 +53,23 @@ const NavigationBar = () => {
               <Nav.Link>Home</Nav.Link>
             </LinkContainer>
 
-            <LinkContainer to="/">
-              <Nav.Link>Posts</Nav.Link>
-            </LinkContainer>
+            {!authUser &&
+              <LinkContainer to="/posts">
+                <Nav.Link>Posts</Nav.Link>
+              </LinkContainer>
+            }
+
+            {authUser &&
+              <NavDropdown title="Posts" id="basic-nav-dropdown">
+                <LinkContainer to="/posts">
+                  <NavDropdown.Item>All Posts</NavDropdown.Item>
+                </LinkContainer>
+
+                <LinkContainer to="/posts/new">
+                  <NavDropdown.Item>New Post</NavDropdown.Item>
+                </LinkContainer>
+              </NavDropdown>
+            }
 
             {!authUser &&
               <NavDropdown title="Login / Signup" id="basic-nav-dropdown">
