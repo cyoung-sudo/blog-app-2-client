@@ -9,7 +9,7 @@ import Loading from "../../components/static/Loading";
 
 const AllPosts = () => {
   // Requested data
-  const [posts, setPosts] =useState("");
+  const [posts, setPosts] = useState("");
   // Loading status
   const [loading, setLoading] = useState(true);
 
@@ -36,7 +36,7 @@ const AllPosts = () => {
         </div>
   
         <div id="allPosts-list-wrapper">
-          <PostsDisplay posts={ posts }/>
+          <PostsDisplay posts={ posts } />
         </div>
       </div>
     );

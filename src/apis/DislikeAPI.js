@@ -1,0 +1,29 @@
+import api from "./configs/axiosConfig";
+
+const DislikeAPI = {
+  //----- Toggle dislike
+  toggle: async (userId, postId) => {
+    const res = await api.request({
+      method: "POST",
+      data: {
+        userId,
+        postId
+      },
+      url: "/api/dislikes"
+    });
+
+    return res;
+  },
+
+  //----- Retrieve all post dislikes
+  getAllForPost: async postId => {
+    const res = await api.request({
+      method: "GET",
+      url: `/api/dislikes/post/${ postId }`
+    });
+
+    return res;
+  }
+};
+
+export default DislikeAPI;

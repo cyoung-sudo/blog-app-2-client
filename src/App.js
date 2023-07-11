@@ -16,6 +16,7 @@ import AllUsers from "./pages/users/AllUsers";
 import Profile from "./pages/users/Profile";
 import AllPosts from "./pages/posts/AllPosts";
 import NewPost from "./pages/posts/NewPost";
+import ShowPost from "./pages/posts/ShowPost";
 // Components
 import NavigationBar from "./components/navigation/NavigationBar";
 import Footer from "./components/navigation/Footer";
@@ -59,6 +60,7 @@ const App = () => {
             <Route path="posts">
               <Route index element={<AllPosts />} />
               <Route path="new" element={<NewPost />} />
+              <Route path=":id" element={<ShowPost />} />
             </Route>
           </Routes>
         }

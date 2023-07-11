@@ -26,6 +26,16 @@ const PostAPI = {
     return res;
   },
 
+  //----- Retrieve post
+  getPost: async id => {
+    const res = await api.request({
+      method: "GET",
+      url: `/api/posts/${ id }`
+    });
+
+    return res;
+  },
+
   //----- Retrieve all user posts
   getForUser: async userId => {
     const res = await api.request({
