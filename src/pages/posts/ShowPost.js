@@ -10,7 +10,10 @@ import AuthAPI from "../../apis/AuthAPI";
 import PostAPI from "../../apis/PostAPI";
 import LikeAPI from "../../apis/LikeAPI";
 import DislikeAPI from "../../apis/DislikeAPI";
+import CommentAPI from "../../apis/CommentAPI";
 // Components
+import CommentForm from "../../components/forms/CommentForm";
+import CommentsDisplay from "../../components/displays/CommentsDisplay";
 import Loading from "../../components/static/Loading";
 // Bootstrap
 import Button from 'react-bootstrap/Button';
@@ -21,6 +24,9 @@ const ShowPost = () => {
   const [post, setPost] = useState(null);
   const [likes, setLikes] = useState(null);
   const [dislikes, setDislikes] = useState(null);
+  const [comments, setComments] = useState(null);
+  // Controlled inputs
+  const [comment, setComment] = useState("");
   // Loading status
   const [loading, setLoading] = useState(true);
   // Manual refresh
@@ -53,11 +59,21 @@ const ShowPost = () => {
     .then(res => {
       if(res.data.success) {
         setDislikes(res.data.count);
+        // Retrieve post comments
+        return CommentAPI.getForPost(id);
+      } else {
+        throw new Error("Failed to retrieve post data");
+      }
+    })
+    .then(res => {
+      if(res.data.success) {
+        setComments(res.data.comments);
       } else {
         throw new Error("Failed to retrieve post data");
       }
       setLoading(false);
     })
+    .catch(err => console.log(err));
   }, [refresh]);
 
   //----- Toggle like for post
@@ -110,6 +126,31 @@ const ShowPost = () => {
     });
   };
 
+  //----- Submit comment
+  const handleComment = () => {
+    // Retrieve authenticated user
+    AuthAPI.getAuthUser()
+    .then(res => {
+      if(res.data.success) {
+        // Create comment
+        return CommentAPI.create(authUser._id, id, comment);
+      } else {
+        throw new Error("Invalid session");
+      }
+    })
+    .then(res => {
+      if(res.data.success) {
+        console.log("Comment created");
+        setRefresh(refresh => !refresh);
+      } else {
+        console.log(res.data.message);
+      }
+    })
+    .catch(err => {
+      console.log(err.message);
+    });
+  };
+
   if(loading) {
     return <Loading message="Loading post data" />;
   } else {
@@ -123,6 +164,13 @@ const ShowPost = () => {
         <div id="showPost-likes">
           <Button onClick={ handleLike }>Likes: { likes }</Button>
           <Button onClick={ handleDislike }>Dislikes: { dislikes }</Button>
+        </div>
+
+        <div>
+          <CommentForm
+            setComment={ setComment }
+            handleComment={ handleComment }/>
+          <CommentsDisplay comments={ comments } />
         </div>
       </div>
     );
