@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 // Routing
 import { Route, Routes } from "react-router-dom";
 // Redux
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { setAuthUser } from "./reducers/sessionSlice";
 // APIs
 import AuthAPI from "./apis/AuthAPI";
@@ -23,11 +23,14 @@ import AllFollows from "./pages/follows/AllFollows";
 import NavigationBar from "./components/navigation/NavigationBar";
 import Footer from "./components/navigation/Footer";
 import Loading from "./components/static/Loading";
+// Utils
+import ProtectedRoute from "./utils/ProtectedRoute";
 
 const App = () => {
   // Loading status
   const [loading, setLoading] = useState(true);
   // Hooks
+  const { authUser } = useSelector(state => state.session);
   const dispatch = useDispatch();
 
   //----- Check for valid session on page load
@@ -61,7 +64,11 @@ const App = () => {
 
             <Route path="posts">
               <Route index element={<AllPosts />} />
-              <Route path="new" element={<NewPost />} />
+              <Route path="new" element={(
+                <ProtectedRoute authUser={ authUser }>
+                  <NewPost />
+                </ProtectedRoute>
+              )} />
               <Route path=":id" element={<ShowPost />} />
             </Route>
 
