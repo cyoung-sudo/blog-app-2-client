@@ -33,6 +33,8 @@ const Profile = () => {
 
   //----- Retrieve user data on page load
   useEffect(() => {
+    setLoading(true);
+    
     // Retrieve user
     UserAPI.getUser(id)
     .then(res => {
@@ -83,7 +85,7 @@ const Profile = () => {
     .catch(err => {
       console.log(err.message);
     })
-  }, [refresh]);
+  }, [refresh, id]);
 
   //----- Toggle user follow
   const handleFollow = () => {
