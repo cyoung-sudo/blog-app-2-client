@@ -15,6 +15,8 @@ import PostsDisplay from "../../components/displays/PostsDisplay";
 import Loading from "../../components/static/Loading";
 // Bootstrap
 import Button from "react-bootstrap/Button";
+// Bootstrap Routing
+import { LinkContainer } from "react-router-bootstrap";
 
 const Profile = () => {
   const [followed, setFollowed] = useState(null);
@@ -34,7 +36,7 @@ const Profile = () => {
   //----- Retrieve user data on page load
   useEffect(() => {
     setLoading(true);
-    
+
     // Retrieve user
     UserAPI.getUser(id)
     .then(res => {
@@ -127,8 +129,17 @@ const Profile = () => {
         </div>
 
         <div id="profile-info">
-          <div>Following: { userFollows.length }</div>
-          <div>Followers: { userFollowers.length }</div>
+          <LinkContainer to={`/follows/${ id }`}>
+            <Button>
+              Following: { userFollows.length }
+            </Button>
+          </LinkContainer>
+
+          <LinkContainer to={`/followers/${ id }`}>
+            <Button>
+              Followers: { userFollowers.length }
+            </Button>
+          </LinkContainer>
         </div>
   
         <div id="profile-posts">

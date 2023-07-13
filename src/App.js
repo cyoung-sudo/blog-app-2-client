@@ -17,6 +17,8 @@ import Profile from "./pages/users/Profile";
 import AllPosts from "./pages/posts/AllPosts";
 import NewPost from "./pages/posts/NewPost";
 import ShowPost from "./pages/posts/ShowPost";
+import AllFollowers from "./pages/follows/AllFollowers";
+import AllFollows from "./pages/follows/AllFollows";
 // Components
 import NavigationBar from "./components/navigation/NavigationBar";
 import Footer from "./components/navigation/Footer";
@@ -62,6 +64,9 @@ const App = () => {
               <Route path="new" element={<NewPost />} />
               <Route path=":id" element={<ShowPost />} />
             </Route>
+
+            <Route path="follows/:id" element={<AllFollows />} />
+            <Route path="followers/:id" element={<AllFollowers />} />
           </Routes>
         }
 
