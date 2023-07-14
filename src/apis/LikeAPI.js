@@ -23,6 +23,17 @@ const LikeAPI = {
     });
 
     return res;
+  },
+
+  //----- Delete all post likes
+  deleteAllForPost: async postId => {
+    console.log("marker")
+    const res = await api.request({
+      method: "DELETE",
+      url: `/api/likes/post/${ postId }`
+    });
+
+    return res;
   }
 };
 

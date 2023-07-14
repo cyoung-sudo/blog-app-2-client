@@ -23,6 +23,16 @@ const DislikeAPI = {
     });
 
     return res;
+  },
+  
+  //----- Delete all post dislikes
+  deleteAllForPost: async postId => {
+    const res = await api.request({
+      method: "DELETE",
+      url: `/api/dislikes/post/${ postId }`
+    });
+
+    return res;
   }
 };
 

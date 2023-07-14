@@ -2,7 +2,7 @@ import "./ShowPost.scss";
 // React
 import { useState, useEffect } from "react";
 // Routing
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 // Redux
 import { useSelector } from "react-redux";
 // APIs
@@ -19,7 +19,6 @@ import Loading from "../../components/static/Loading";
 import Button from 'react-bootstrap/Button';
 
 const ShowPost = () => {
-  const { authUser } = useSelector(state => state.session);
   // Requested data
   const [post, setPost] = useState(null);
   const [likes, setLikes] = useState(null);
@@ -32,7 +31,9 @@ const ShowPost = () => {
   // Manual refresh
   const [refresh, setRefresh] = useState(false);
   // Hooks
+  const { authUser } = useSelector(state => state.session);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   //----- Retrieve post data on page load
   useEffect(() => {
@@ -151,6 +152,53 @@ const ShowPost = () => {
     });
   };
 
+  //----- Delete post & relavent data
+  const handleDelete = () => {
+    // Retrieve authenticated user
+    AuthAPI.getAuthUser()
+    .then(res => {
+      if(res.data.success) {
+        // Delete all post likes
+        return LikeAPI.deleteAllForPost(id);
+      } else {
+        throw new Error("Invalid session");
+      }
+    })
+    .then(res => {
+      if(res.data.success) {
+        // Delete all post dislikes
+        return DislikeAPI.deleteAllForPost(id);
+      } else {
+        throw new Error("Failed to delete post");
+      }
+    })
+    .then(res => {
+      if(res.data.success) {
+        // Delete all post comments
+        return CommentAPI.deleteAllForPost(id);
+      } else {
+        throw new Error("Failed to delete post");
+      }
+    })
+    .then(res => {
+      if(res.data.success) {
+        // Delete post
+        return PostAPI.deletePost(id);
+      } else {
+        throw new Error("Failed to delete post");
+      }
+    })
+    .then(res => {
+      if(res.data.success) {
+        console.log("Post deleted");
+        navigate(`/users/${ authUser._id }`);
+      }
+    })
+    .catch(err => {
+      console.log(err.message);
+    });
+  };
+
   if(loading) {
     return <Loading message="Loading post data" />;
   } else {
@@ -162,14 +210,30 @@ const ShowPost = () => {
         </div>
 
         <div id="showPost-likes">
-          <Button onClick={ handleLike }>Likes: { likes }</Button>
-          <Button onClick={ handleDislike }>Dislikes: { dislikes }</Button>
+          <Button 
+            onClick={ handleLike }
+            disabled={authUser ? false : true}>
+            Likes: { likes }
+          </Button>
+          <Button
+            onClick={ handleDislike }
+            disabled={authUser ? false : true}>
+            Dislikes: { dislikes }
+          </Button>
         </div>
 
         <div>
-          <CommentForm
-            setComment={ setComment }
-            handleComment={ handleComment }/>
+          {authUser && (authUser._id === post.userId) &&
+            <Button onClick={ handleDelete }>Delete</Button>
+          }
+        </div>
+
+        <div id="showPost-comments">
+          {authUser &&
+            <CommentForm
+              setComment={ setComment }
+              handleComment={ handleComment }/>
+          }
           <CommentsDisplay comments={ comments } />
         </div>
       </div>
