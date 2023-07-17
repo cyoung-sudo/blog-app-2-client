@@ -31,7 +31,7 @@ const Login = () => {
 
         // Set authenticated user state
         dispatch(setAuthUser(res.data.user));
-        navigate("/");
+        navigate(`/users/${ res.data.user._id }`);
       } else {
         console.log(res.data.message);
       }

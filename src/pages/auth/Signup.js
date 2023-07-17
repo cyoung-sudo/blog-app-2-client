@@ -1,6 +1,8 @@
 import "./Signup.scss";
 // React
 import { useState } from  "react";
+// Routing
+import { useNavigate } from "react-router-dom";
 // Components
 import AuthForm from "../../components/forms/AuthForm";
 // APIs
@@ -10,6 +12,8 @@ const Signup = () => {
   // Controlled inputs
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  // Hooks
+  const navigate = useNavigate();
 
   //----- Submit form data
   const handleSubmit = e => {
@@ -20,6 +24,7 @@ const Signup = () => {
     .then(res => {
       if(res.data.success) {
         console.log("Success");
+        navigate("/login");
       } else {
         console.log("Failed");
       }
