@@ -79,7 +79,7 @@ const NavigationBar = () => {
                   <NavDropdown.Item>Profile</NavDropdown.Item>
                 </LinkContainer>
 
-                <LinkContainer to="/">
+                <LinkContainer to="/settings">
                   <NavDropdown.Item>Settings</NavDropdown.Item>
                 </LinkContainer>
               </NavDropdown>

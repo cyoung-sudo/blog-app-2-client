@@ -19,6 +19,7 @@ import NewPost from "./pages/posts/NewPost";
 import ShowPost from "./pages/posts/ShowPost";
 import AllFollowers from "./pages/follows/AllFollowers";
 import AllFollows from "./pages/follows/AllFollows";
+import Settings from "./pages/settings/Settings";
 // Components
 import NavigationBar from "./components/navigation/NavigationBar";
 import Footer from "./components/navigation/Footer";
@@ -74,6 +75,12 @@ const App = () => {
 
             <Route path="follows/:id" element={<AllFollows />} />
             <Route path="followers/:id" element={<AllFollowers />} />
+
+            <Route path="settings" element={(
+              <ProtectedRoute authUser={ authUser }>
+                <Settings />
+              </ProtectedRoute>
+            )} />
           </Routes>
         }
 

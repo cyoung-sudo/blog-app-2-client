@@ -33,6 +33,16 @@ const UserAPI = {
     });
 
     return res;
+  },
+
+  //----- Delete user
+  deleteUser: async id => {
+    const res = await api.request({
+      method: "DELETE",
+      url: `/api/users/${ id }`
+    });
+
+    return res;
   }
 };
 

@@ -47,7 +47,7 @@ const PostAPI = {
   },
 
   //----- Retrieve all user posts
-  getForUser: async userId => {
+  getAllForUser: async userId => {
     const res = await api.request({
       method: "GET",
       url: `/api/posts/user/${ userId }`
@@ -55,6 +55,16 @@ const PostAPI = {
 
     return res;
   },
+
+  //----- Delete all user posts
+  deleteAllForUser: async userId => {
+    const res = await api.request({
+      method: "DELETE",
+      url: `/api/posts/user/${ userId }`
+    });
+
+    return res;
+  }
 };
 
 export default PostAPI;

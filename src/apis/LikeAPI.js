@@ -34,6 +34,16 @@ const LikeAPI = {
     });
 
     return res;
+  },
+
+  //----- Delete all user likes
+  deleteAllForUser: async userId => {
+    const res = await api.request({
+      method: "DELETE",
+      url: `/api/likes/user/${ userId }`
+    });
+
+    return res;
   }
 };
 

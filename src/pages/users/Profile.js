@@ -43,7 +43,7 @@ const Profile = () => {
       if(res.data.success) {
         setUser(res.data.user);
         // Retrieve user posts
-        return PostAPI.getForUser(id);
+        return PostAPI.getAllForUser(id);
       } else {
         throw new Error("User not found");
       }

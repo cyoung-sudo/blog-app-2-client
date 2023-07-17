@@ -33,6 +33,16 @@ const DislikeAPI = {
     });
 
     return res;
+  },
+
+  //----- Delete all user dislikes
+  deleteAllForUser: async userId => {
+    const res = await api.request({
+      method: "DELETE",
+      url: `/api/dislikes/user/${ userId }`
+    });
+
+    return res;
   }
 };
 
