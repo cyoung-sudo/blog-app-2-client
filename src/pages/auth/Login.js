@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 // Redux
 import { useDispatch } from "react-redux";
 import { setAuthUser } from "../../reducers/sessionSlice";
+import { setPopup } from "../../reducers/popupSlice";
 // Components
 import AuthForm from "../../components/forms/AuthForm";
 // APIs
@@ -16,27 +17,40 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   // Hooks
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   //----- Submit form data
   const handleSubmit = e => {
     e.preventDefault();
 
-    // Login user
-    AuthAPI.login(username, password)
-    .then(res => {
-      if(res.data.success) {
-        console.log("Success");
-
-        // Set authenticated user state
-        dispatch(setAuthUser(res.data.user));
-        navigate(`/users/${ res.data.user._id }`);
-      } else {
-        console.log(res.data.message);
-      }
-    })
-    .catch(err => console.log(err));
+    // Validations
+    if(username === "" || password === "") {
+      dispatch(setPopup({
+        message: "Missing required field",
+        type: "warning"
+      }));
+    } else {
+      // Login user
+      AuthAPI.login(username, password)
+      .then(res => {
+        if(res.data.success) {
+          // Set authenticated user state
+          dispatch(setAuthUser(res.data.user));
+          dispatch(setPopup({
+            message: "Logged in",
+            type: "success"
+          }));
+          navigate(`/users/${ res.data.user._id }`);
+        } else {
+          dispatch(setPopup({
+            message: res.data.message,
+            type: "danger"
+          }));
+        }
+      })
+      .catch(err => console.log(err));
+    }
   };
 
   return (

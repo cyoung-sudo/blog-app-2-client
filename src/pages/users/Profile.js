@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 // Routing
 import { useParams } from "react-router-dom";
 // Redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setPopup } from "../../reducers/popupSlice";
 // APIs
 import AuthAPI from "../../apis/AuthAPI";
 import UserAPI from "../../apis/UserAPI";
@@ -30,8 +31,9 @@ const Profile = () => {
   // Manual refresh
   const [refresh, setRefresh] = useState(false);
   // Hooks
-  const { authUser } = useSelector(state => state.session);
   const { id } = useParams();
+  const { authUser } = useSelector(state => state.session);
+  const dispatch = useDispatch();
 
   //----- Retrieve user data on page load
   useEffect(() => {
@@ -85,7 +87,10 @@ const Profile = () => {
       setLoading(false);
     })
     .catch(err => {
-      console.log(err.message);
+      dispatch(setPopup({
+        message: err.message,
+        type: "danger"
+      }));
     })
   }, [refresh, id]);
 
@@ -103,13 +108,21 @@ const Profile = () => {
     })
     .then(res => {
       if(res.data.success) {
-        console.log("Toggled user follow");
+        dispatch(setPopup({
+          message: "Toggled follow",
+          type: "success"
+        }));
         setRefresh(refresh => !refresh);
       } else {
-        console.log("An error occured");
+        throw new Error("Failed to toggle follow");
       }
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      dispatch(setPopup({
+        message: err.message,
+        type: "danger"
+      }));
+    });
   };
 
   if(loading) {

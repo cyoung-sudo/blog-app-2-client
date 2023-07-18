@@ -1,6 +1,9 @@
 import "./AllUsers.scss";
 // React
 import { useState, useEffect } from "react";
+// Redux
+import { useDispatch } from "react-redux";
+import { setPopup } from "../../reducers/popupSlice";
 // APIs
 import UserAPI from "../../apis/UserAPI";
 // Components
@@ -12,6 +15,8 @@ const AllUsers = () => {
   const [users, setUsers] =useState("");
   // Loading status
   const [loading, setLoading] = useState(true);
+  // Hooks
+  const dispatch = useDispatch();
 
   //----- Retrieve all users on page load
   useEffect(() => {
@@ -20,10 +25,15 @@ const AllUsers = () => {
     .then(res => {
       if(res.data.success) {
         setUsers(res.data.users);
+        setLoading(false);
+      } else {
+        dispatch(setPopup({
+          message: "Failed to retrieve users",
+          type: "danger"
+        }));
       }
-      setLoading(false);
     })
-    .catch(err => console.log(err));
+    .catch(err => {console.log(err)});
   }, []);
 
   if(loading) {

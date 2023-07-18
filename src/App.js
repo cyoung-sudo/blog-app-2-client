@@ -23,6 +23,7 @@ import Settings from "./pages/settings/Settings";
 // Components
 import NavigationBar from "./components/navigation/NavigationBar";
 import Footer from "./components/navigation/Footer";
+import Popup from "./components/messages/Popup";
 import Loading from "./components/static/Loading";
 // Utils
 import ProtectedRoute from "./utils/ProtectedRoute";
@@ -52,6 +53,7 @@ const App = () => {
     <div id="app">
       <NavigationBar />
       <div id="app-content">
+        <Popup />
         {!loading &&
           <Routes>
             <Route path="/" element={<Home />} />

@@ -3,6 +3,9 @@ import "./Signup.scss";
 import { useState } from  "react";
 // Routing
 import { useNavigate } from "react-router-dom";
+// Redux
+import { useDispatch } from "react-redux";
+import { setPopup } from "../../reducers/popupSlice";
 // Components
 import AuthForm from "../../components/forms/AuthForm";
 // APIs
@@ -14,22 +17,37 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   // Hooks
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   //----- Submit form data
   const handleSubmit = e => {
     e.preventDefault();
 
-    // Create user
-    UserAPI.create(username, password)
-    .then(res => {
-      if(res.data.success) {
-        console.log("Success");
-        navigate("/login");
-      } else {
-        console.log("Failed");
-      }
-    })
-    .catch(e => console.log(e));
+    // Validations
+    if(username === "" || password === "") {
+      dispatch(setPopup({
+        message: "Missing required field",
+        type: "warning"
+      }));
+    } else {
+      // Create user
+      UserAPI.create(username, password)
+      .then(res => {
+        if(res.data.success) {
+          dispatch(setPopup({
+            message: "Account created",
+            type: "success"
+          }));
+          navigate("/login");
+        } else {
+          dispatch(setPopup({
+            message: res.data.message,
+            type: "danger"
+          }));
+        }
+      })
+      .catch(err => console.log(err));
+    }
   };
 
   return (

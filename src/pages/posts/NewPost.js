@@ -4,7 +4,8 @@ import { useState } from "react";
 // Routing
 import { useNavigate } from "react-router-dom";
 // Redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setPopup } from "../../reducers/popupSlice";
 // APIs
 import AuthAPI from "../../apis/AuthAPI";
 import PostAPI from "../../apis/PostAPI";
@@ -16,8 +17,9 @@ const NewPost = () => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   // Hooks
-  const { authUser } = useSelector(state => state.session);
   const navigate = useNavigate();
+  const { authUser } = useSelector(state => state.session);
+  const dispatch = useDispatch();
 
   //----- Submit form data
   const handleSubmit = e => {
@@ -31,21 +33,25 @@ const NewPost = () => {
         // Create post
         return PostAPI.create(userId, title, desc);
       } else {
-        // Exit promise chain
         throw new Error("Invalid session");
       }
     })
     .then(res => {
       if(res.data.success) {
-        console.log("Post created");
+        dispatch(setPopup({
+          message: "Post created",
+          type: "success"
+        }));
         navigate(`/users/${ authUser._id }`);
       } else {
-        console.log("Failed to create post");
+        throw new Error("Failed to create post");
       }
     })
     .catch(err => {
-      console.log(err);
-      console.log(err.message);
+      dispatch(setPopup({
+        message: err.message,
+        type: "danger"
+      }));
     });
   };
 

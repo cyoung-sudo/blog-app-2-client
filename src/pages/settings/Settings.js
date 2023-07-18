@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { resetAuthUser } from "../../reducers/sessionSlice";
+import { setPopup } from "../../reducers/popupSlice";
 // APIs
 import AuthAPI from "../../apis/AuthAPI";
 import UserAPI from "../../apis/UserAPI";
@@ -17,9 +18,9 @@ import Button from "react-bootstrap/Button";
 
 const Settings = () => {
   // Hooks
+  const navigate = useNavigate();
   const { authUser } = useSelector(state => state.session);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   //----- Delete user account
   const handleAccountDelete = () => {
@@ -29,52 +30,76 @@ const Settings = () => {
       if(res.data.success) {
         // Delete all user comments
         return CommentAPI.deleteAllForUser(authUser._id);
+      } else {
+        throw new Error("Invalid session");
       }
     })
     .then(res => {
       if(res.data.success) {
         // Delete all user likes
         return LikeAPI.deleteAllForUser(authUser._id);
+      } else {
+        throw new Error("Failed to delete account");
       }
     })
     .then(res => {
       if(res.data.success) {
         // Delete all user dislikes
         return DislikeAPI.deleteAllForUser(authUser._id);
+      } else {
+        throw new Error("Failed to delete account");
       }
     }).then(res => {
       if(res.data.success) {
         // Delete all user posts
         return PostAPI.deleteAllForUser(authUser._id);
+      } else {
+        throw new Error("Failed to delete account");
       }
     })
     .then(res => {
       if(res.data.success) {
         // Delete all user follows
         return FollowAPI.deleteAllForUser(authUser._id);
+      } else {
+        throw new Error("Failed to delete account");
       }
     })
     .then(res => {
       if(res.data.success) {
         // Delete user
         return UserAPI.deleteUser(authUser._id);
+      } else {
+        throw new Error("Failed to delete account");
       }
     })
     .then(res => {
       if(res.data.success) {
         // Logout user
         return AuthAPI.logout();
+      } else {
+        throw new Error("Failed to delete account");
       }
     })
     .then(res => {
       if(res.data.success) {
-        console.log("Account deleted");
         // Reset authenticated user state
         dispatch(resetAuthUser());
+        dispatch(setPopup({
+          message: "Account deleted",
+          type: "success"
+        }));
         navigate("/");
+      } else {
+        throw new Error("Failed to logout");
       }
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      dispatch(setPopup({
+        message: err.message,
+        type: "danger"
+      }));
+    });
   };
 
   return (

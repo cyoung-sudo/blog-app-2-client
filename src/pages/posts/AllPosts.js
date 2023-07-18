@@ -1,6 +1,9 @@
 import "./AllPosts.scss";
 // React
 import { useState, useEffect } from "react";
+// Redux
+import { useDispatch } from "react-redux";
+import { setPopup } from "../../reducers/popupSlice";
 // APIs
 import PostAPI from "../../apis/PostAPI";
 // Components
@@ -12,6 +15,8 @@ const AllPosts = () => {
   const [posts, setPosts] = useState("");
   // Loading status
   const [loading, setLoading] = useState(true);
+  // Hooks
+  const dispatch = useDispatch();
 
   //----- Retrieve all posts on page load
   useEffect(() => {
@@ -20,8 +25,13 @@ const AllPosts = () => {
     .then(res => {
       if(res.data.success) {
         setPosts(res.data.posts);
+        setLoading(false);
+      } else {
+        dispatch(setPopup({
+          message: "Failed to retrieve posts",
+          type: "danger"
+        }));
       }
-      setLoading(false);
     })
     .catch(err => console.log(err));
   }, []);

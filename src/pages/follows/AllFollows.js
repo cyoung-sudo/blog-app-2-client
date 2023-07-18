@@ -3,6 +3,9 @@ import "./AllFollows.scss";
 import { useState, useEffect } from "react";
 // Routing
 import { useParams } from "react-router-dom";
+// Redux
+import { useDispatch } from "react-redux";
+import { setPopup } from "../../reducers/popupSlice";
 // API
 import UserAPI from "../../apis/UserAPI";
 import FollowAPI from "../../apis/FollowAPI";
@@ -17,6 +20,7 @@ const AllFollows = () => {
   const [loading, setLoading] = useState(true);
   // Hooks
   const { id } = useParams();
+  const dispatch = useDispatch();
 
   //----- Retrieve follows data on page load
   useEffect(() => {
@@ -30,6 +34,8 @@ const AllFollows = () => {
           promises.push(UserAPI.getUser(follow.followedId));
         }
         return Promise.all(promises);
+      } else {
+        throw new Error("Failed to retrieve follows");
       }
     })
     .then(responses => {
@@ -39,13 +45,18 @@ const AllFollows = () => {
         if(res.data.success) {
           followedUsers.push(res.data.user);
         } else {
-          throw new Error("Failed to retrieve follow data");
+          throw new Error("Failed to retrieve follows");
         }
       }
       setFollows(followedUsers);
       setLoading(false);
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      dispatch(setPopup({
+        message: err.message,
+        type: "danger"
+      }));
+    });
   }, []);
 
   if(loading) {

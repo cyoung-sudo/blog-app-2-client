@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 // Routing
 import { useParams, useNavigate } from "react-router-dom";
 // Redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setPopup } from "../../reducers/popupSlice";
 // APIs
 import AuthAPI from "../../apis/AuthAPI";
 import PostAPI from "../../apis/PostAPI";
@@ -31,9 +32,10 @@ const ShowPost = () => {
   // Manual refresh
   const [refresh, setRefresh] = useState(false);
   // Hooks
-  const { authUser } = useSelector(state => state.session);
   const { id } = useParams();
   const navigate = useNavigate();
+  const { authUser } = useSelector(state => state.session);
+  const dispatch = useDispatch();
 
   //----- Retrieve post data on page load
   useEffect(() => {
@@ -74,7 +76,12 @@ const ShowPost = () => {
       }
       setLoading(false);
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      dispatch(setPopup({
+        message: err.message,
+        type: "danger"
+      }));
+    });
   }, [refresh]);
 
   //----- Toggle like for post
@@ -91,14 +98,20 @@ const ShowPost = () => {
     })
     .then(res => {
       if(res.data.success) {
-        console.log("Liked post")
+        dispatch(setPopup({
+          message: "Liked post",
+          type: "success"
+        }));
         setRefresh(refresh => !refresh);
       } else {
-        console.log(res.data.message);
+        throw new Error("Failed to like post");
       }
     })
     .catch(err => {
-      console.log(err.message);
+      dispatch(setPopup({
+        message: err.message,
+        type: "danger"
+      }));
     });
   };
 
@@ -116,40 +129,59 @@ const ShowPost = () => {
     })
     .then(res => {
       if(res.data.success) {
-        console.log("Disliked post");
+        dispatch(setPopup({
+          message: "Disliked post",
+          type: "success"
+        }));
         setRefresh(refresh => !refresh);
       } else {
-        console.log(res.data.message);
+        throw new Error("Failed to dislike post");
       }
     })
     .catch(err => {
-      console.log(err.message);
+      dispatch(setPopup({
+        message: err.message,
+        type: "danger"
+      }));
     });
   };
 
   //----- Submit comment
   const handleComment = () => {
-    // Retrieve authenticated user
-    AuthAPI.getAuthUser()
-    .then(res => {
-      if(res.data.success) {
-        // Create comment
-        return CommentAPI.create(authUser._id, id, comment);
-      } else {
-        throw new Error("Invalid session");
-      }
-    })
-    .then(res => {
-      if(res.data.success) {
-        console.log("Comment created");
-        setRefresh(refresh => !refresh);
-      } else {
-        console.log(res.data.message);
-      }
-    })
-    .catch(err => {
-      console.log(err.message);
-    });
+    if(comment === "") {
+      dispatch(setPopup({
+        message: "Missing required field",
+        type: "warning"
+      }));
+    } else {
+      // Retrieve authenticated user
+      AuthAPI.getAuthUser()
+      .then(res => {
+        if(res.data.success) {
+          // Create comment
+          return CommentAPI.create(authUser._id, id, comment);
+        } else {
+          throw new Error("Invalid session");
+        }
+      })
+      .then(res => {
+        if(res.data.success) {
+          dispatch(setPopup({
+            message: "Comment posted",
+            type: "success"
+          }));
+          setRefresh(refresh => !refresh);
+        } else {
+          throw new Error("Failed to post comment");
+        }
+      })
+      .catch(err => {
+        dispatch(setPopup({
+          message: err.message,
+          type: "danger"
+        }));
+      });
+    }
   };
 
   //----- Delete post & relavent data
@@ -190,12 +222,20 @@ const ShowPost = () => {
     })
     .then(res => {
       if(res.data.success) {
-        console.log("Post deleted");
+        dispatch(setPopup({
+          message: "Post deleted",
+          type: "success"
+        }));
         navigate(`/users/${ authUser._id }`);
+      } else {
+        throw new Error("Failed to delete post");
       }
     })
     .catch(err => {
-      console.log(err.message);
+      dispatch(setPopup({
+        message: err.message,
+        type: "danger"
+      }));
     });
   };
 
