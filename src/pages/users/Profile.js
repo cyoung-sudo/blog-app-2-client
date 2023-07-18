@@ -20,12 +20,12 @@ import Button from "react-bootstrap/Button";
 import { LinkContainer } from "react-router-bootstrap";
 
 const Profile = () => {
-  const [followed, setFollowed] = useState(null);
   // Requested data
   const [user, setUser] = useState(null);
   const [userPosts, setUserPosts] = useState(null);
   const [userFollows, setUserFollows] = useState(null);
   const [userFollowers, setUserFollowers] = useState(null);
+  const [followed, setFollowed] = useState(null);
   // Loading status
   const [loading, setLoading] = useState(true);
   // Manual refresh
@@ -108,10 +108,6 @@ const Profile = () => {
     })
     .then(res => {
       if(res.data.success) {
-        dispatch(setPopup({
-          message: "Toggled follow",
-          type: "success"
-        }));
         setRefresh(refresh => !refresh);
       } else {
         throw new Error("Failed to toggle follow");

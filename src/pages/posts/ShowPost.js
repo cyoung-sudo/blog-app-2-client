@@ -98,10 +98,6 @@ const ShowPost = () => {
     })
     .then(res => {
       if(res.data.success) {
-        dispatch(setPopup({
-          message: "Liked post",
-          type: "success"
-        }));
         setRefresh(refresh => !refresh);
       } else {
         throw new Error("Failed to like post");
@@ -129,10 +125,6 @@ const ShowPost = () => {
     })
     .then(res => {
       if(res.data.success) {
-        dispatch(setPopup({
-          message: "Disliked post",
-          type: "success"
-        }));
         setRefresh(refresh => !refresh);
       } else {
         throw new Error("Failed to dislike post");
@@ -166,10 +158,7 @@ const ShowPost = () => {
       })
       .then(res => {
         if(res.data.success) {
-          dispatch(setPopup({
-            message: "Comment posted",
-            type: "success"
-          }));
+          setComment("");
           setRefresh(refresh => !refresh);
         } else {
           throw new Error("Failed to post comment");
@@ -271,6 +260,7 @@ const ShowPost = () => {
         <div id="showPost-comments">
           {authUser &&
             <CommentForm
+              comment= { comment }
               setComment={ setComment }
               handleComment={ handleComment }/>
           }
