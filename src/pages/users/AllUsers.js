@@ -9,6 +9,7 @@ import UserAPI from "../../apis/UserAPI";
 // Components
 import UsersDisplay from "../../components/displays/UsersDisplay";
 import Loading from "../../components/static/Loading";
+import EmptyList from "../../components/static/EmptyList";
 
 const AllUsers = () => {
   // Requested data
@@ -46,7 +47,8 @@ const AllUsers = () => {
         </div>
   
         <div id="allUsers-list-wrapper">
-          <UsersDisplay users={ users }/>
+          {users.length > 0 && <UsersDisplay users={ users }/>}
+          {users.length <= 0 && <EmptyList listItem="user" />}
         </div>
       </div>
     );

@@ -9,6 +9,7 @@ import PostAPI from "../../apis/PostAPI";
 // Components
 import PostsDisplay from "../../components/displays/PostsDisplay";
 import Loading from "../../components/static/Loading";
+import EmptyList from "../../components/static/EmptyList";
 
 const AllPosts = () => {
   // Requested data
@@ -46,7 +47,8 @@ const AllPosts = () => {
         </div>
   
         <div id="allPosts-list-wrapper">
-          <PostsDisplay posts={ posts } />
+          {posts.length > 0 && <PostsDisplay posts={ posts } />}
+          {posts.length <= 0 && <EmptyList listItem="post" />}
         </div>
       </div>
     );

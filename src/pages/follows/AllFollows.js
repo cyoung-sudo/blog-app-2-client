@@ -12,6 +12,7 @@ import FollowAPI from "../../apis/FollowAPI";
 // Components
 import UsersDisplay from "../../components/displays/UsersDisplay";
 import Loading from "../../components/static/Loading";
+import EmptyList from "../../components/static/EmptyList";
 
 const AllFollows = () => {
   // Requested data
@@ -69,7 +70,8 @@ const AllFollows = () => {
         </div>
   
         <div id="allFollows-list-wrapper">
-          <UsersDisplay users={ follows } />
+          {follows.length > 0 && <UsersDisplay users={ follows } />}
+          {follows.length <= 0 && <EmptyList listItem="follow" />}
         </div>
       </div>
     );

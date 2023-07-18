@@ -14,6 +14,7 @@ import FollowAPI from "../../apis/FollowAPI";
 // Components
 import PostsDisplay from "../../components/displays/PostsDisplay";
 import Loading from "../../components/static/Loading";
+import EmptyList from "../../components/static/EmptyList";
 // Bootstrap
 import Button from "react-bootstrap/Button";
 // Bootstrap Routing
@@ -153,7 +154,8 @@ const Profile = () => {
   
         <div id="profile-posts">
           <div>Posts</div>
-          <PostsDisplay posts={ userPosts } />
+          {userPosts.length > 0 && <PostsDisplay posts={ userPosts } />}
+          {userPosts.length <= 0 && <EmptyList listItem="post" />}
         </div>
       </div>
     );
