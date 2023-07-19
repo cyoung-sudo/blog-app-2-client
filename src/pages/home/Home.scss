@@ -1,0 +1,6 @@
+#home {
+  img {
+    height: calc(100vh - var(--navigationBar-height));
+    width: 100%;
+  }
+}

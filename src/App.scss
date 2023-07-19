@@ -4,6 +4,6 @@
 }
 
 #app-content {
-  padding-top: 55px; // NavigationBar height
-  padding-bottom: 110px; // Footer height
+  padding-top: var(--navigationBar-height); // NavigationBar height
+  padding-bottom: var(--footer-height); // Footer height
 }
