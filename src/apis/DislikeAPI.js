@@ -35,6 +35,16 @@ const DislikeAPI = {
     return res;
   },
 
+  //----- Retrieve all user dislikes
+  getAllForUser: async userId => {
+    const res = await api.request({
+      method: "GET",
+      url: `/api/dislikes/user/${ userId }`
+    });
+
+    return res;
+  },
+
   //----- Delete all user dislikes
   deleteAllForUser: async userId => {
     const res = await api.request({

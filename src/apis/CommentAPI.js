@@ -36,6 +36,16 @@ const CommentAPI = {
     return res;
   },
 
+  //----- Retrieve all user comments
+  getAllForUser: async userId => {
+    const res = await api.request({
+      method: "GET",
+      url: `/api/comments/user/${ userId }`
+    });
+
+    return res;
+  },
+
   //----- Delete all user comments
   deleteAllForUser: async userId => {
     const res = await api.request({

@@ -36,6 +36,16 @@ const LikeAPI = {
     return res;
   },
 
+  //----- Retrieve all user likes
+  getAllForUser: async userId => {
+    const res = await api.request({
+      method: "GET",
+      url: `/api/likes/user/${ userId }`
+    });
+
+    return res;
+  },
+
   //----- Delete all user likes
   deleteAllForUser: async userId => {
     const res = await api.request({
