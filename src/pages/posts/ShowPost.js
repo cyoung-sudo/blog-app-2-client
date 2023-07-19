@@ -20,7 +20,7 @@ import Loading from "../../components/static/Loading";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 // Icons
-import { AiFillLike, AiFillDislike } from "react-icons/ai";
+import { AiFillLike, AiFillDislike, AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 
 
 const ShowPost = () => {
@@ -29,6 +29,8 @@ const ShowPost = () => {
   const [likes, setLikes] = useState(null);
   const [dislikes, setDislikes] = useState(null);
   const [comments, setComments] = useState(null);
+  const [liked, setLiked] = useState(null);
+  const [disliked, setDisliked] = useState(null);
   // Controlled inputs
   const [comment, setComment] = useState("");
   // Loading status
@@ -56,7 +58,17 @@ const ShowPost = () => {
     })
     .then(res => {
       if(res.data.success) {
-        setLikes(res.data.count);
+        setLikes(res.data.likes);
+        // Check if authUser liked post
+        let likeCheck = false;
+        if(authUser) {
+          for(let like of res.data.likes) {
+            if(like.userId === authUser._id) {
+              likeCheck= true;
+            }
+          }
+        }
+        setLiked(likeCheck);
         // Retrieve post dislikes
         return DislikeAPI.getAllForPost(id);
       } else {
@@ -65,7 +77,17 @@ const ShowPost = () => {
     })
     .then(res => {
       if(res.data.success) {
-        setDislikes(res.data.count);
+        setDislikes(res.data.dislikes);
+        // Check if authUser disliked post
+        let dislikeCheck = false;
+        if(authUser) {
+          for(let dislike of res.data.dislikes) {
+            if(dislike.userId === authUser._id) {
+              dislikeCheck= true;
+            }
+          }
+        }
+        setDisliked(dislikeCheck);
         // Retrieve post comments
         return CommentAPI.getForPost(id);
       } else {
@@ -246,12 +268,16 @@ const ShowPost = () => {
           <Button 
             onClick={ handleLike }
             disabled={authUser ? false : true}>
-            <AiFillLike /> { likes }
+            {(!authUser || !liked) && <AiOutlineLike />}
+            {liked && <AiFillLike />}
+            { likes.length }
           </Button>
           <Button
             onClick={ handleDislike }
             disabled={authUser ? false : true}>
-            <AiFillDislike /> { dislikes }
+            {(!authUser || !disliked) && <AiOutlineDislike />}
+            {disliked && <AiFillDislike />}
+            { dislikes.length }
           </Button>
         </div>
 

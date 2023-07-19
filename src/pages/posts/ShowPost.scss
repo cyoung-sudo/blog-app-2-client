@@ -8,5 +8,8 @@
   text-align: center;
   > button {
     margin: 0 0.5rem;
+    > svg {
+      margin-right: 0.3rem;
+    }
   }
 }
