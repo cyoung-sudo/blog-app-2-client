@@ -17,7 +17,11 @@ import CommentForm from "../../components/forms/CommentForm";
 import CommentsDisplay from "../../components/displays/CommentsDisplay";
 import Loading from "../../components/static/Loading";
 // Bootstrap
-import Button from 'react-bootstrap/Button';
+import Container from "react-bootstrap/Container";
+import Button from "react-bootstrap/Button";
+// Icons
+import { AiFillLike, AiFillDislike } from "react-icons/ai";
+
 
 const ShowPost = () => {
   // Requested data
@@ -232,9 +236,9 @@ const ShowPost = () => {
     return <Loading message="Loading post data" />;
   } else {
     return (
-      <div id="showPost">
+      <Container id="showPost">
         <div id="showPost-header">
-          <div>{ post.title }</div>
+          <h1>{ post.title }</h1>
           <div>{ post.desc }</div>
         </div>
 
@@ -242,12 +246,12 @@ const ShowPost = () => {
           <Button 
             onClick={ handleLike }
             disabled={authUser ? false : true}>
-            Likes: { likes }
+            <AiFillLike /> { likes }
           </Button>
           <Button
             onClick={ handleDislike }
             disabled={authUser ? false : true}>
-            Dislikes: { dislikes }
+            <AiFillDislike /> { dislikes }
           </Button>
         </div>
 
@@ -266,7 +270,7 @@ const ShowPost = () => {
           }
           <CommentsDisplay comments={ comments } />
         </div>
-      </div>
+      </Container>
     );
   }
 };

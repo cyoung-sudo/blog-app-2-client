@@ -1,0 +1,12 @@
+#showPost-header {
+  margin: 1rem 0;
+  text-align: center;
+}
+
+#showPost-likes {
+  margin-bottom: 1rem;
+  text-align: center;
+  > button {
+    margin: 0 0.5rem;
+  }
+}
