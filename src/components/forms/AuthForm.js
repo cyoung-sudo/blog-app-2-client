@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 
 const AuthForm = ({ setUsername, setPassword, handleSubmit }) => {
   return (
-    <Form onSubmit={ handleSubmit }>
+    <Form className="authForm" onSubmit={ handleSubmit }>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Username</Form.Label>
         <Form.Control 

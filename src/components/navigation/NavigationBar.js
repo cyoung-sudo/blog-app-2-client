@@ -91,15 +91,11 @@ const NavigationBar = () => {
                   <NavDropdown.Item>Login</NavDropdown.Item>
                 </LinkContainer>
 
+                <NavDropdown.Divider />
+
                 <LinkContainer to="/signup">
                   <NavDropdown.Item>Signup</NavDropdown.Item>
                 </LinkContainer>
-
-                <NavDropdown.Divider />
-
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
               </NavDropdown>
             }
 

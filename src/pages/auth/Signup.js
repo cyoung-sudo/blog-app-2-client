@@ -10,6 +10,8 @@ import { setPopup } from "../../reducers/popupSlice";
 import AuthForm from "../../components/forms/AuthForm";
 // APIs
 import UserAPI from "../../apis/UserAPI";
+// Bootstrap
+import Container from "react-bootstrap/Container";
 
 const Signup = () => {
   // Controlled inputs
@@ -56,12 +58,12 @@ const Signup = () => {
         <h1>Signup</h1>
       </div>
 
-      <div id="signup-form-wrapper">
+      <Container id="signup-form-wrapper">
         <AuthForm
           setUsername={ setUsername }
           setPassword={ setPassword }
           handleSubmit={ handleSubmit } />
-      </div>
+      </Container>
     </div>
   )
 };

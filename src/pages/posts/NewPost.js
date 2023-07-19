@@ -11,6 +11,8 @@ import AuthAPI from "../../apis/AuthAPI";
 import PostAPI from "../../apis/PostAPI";
 // Components
 import PostForm from "../../components/forms/PostForm";
+// Bootstrap
+import Container from "react-bootstrap/Container";
 
 const NewPost = () => {
   // Controlled inputs
@@ -61,12 +63,12 @@ const NewPost = () => {
         <h1>Create Post</h1>
       </div>
 
-      <div id="newPost-form-wrapper">
+      <Container id="newPost-form-wrapper">
         <PostForm 
           setTitle={ setTitle }
           setDesc={ setDesc }
           handleSubmit={ handleSubmit }/>
-      </div>
+      </Container>
     </div>
   );
 };
