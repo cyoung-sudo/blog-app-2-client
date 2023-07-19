@@ -26,6 +26,8 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 // Bootstrap Routing
 import { LinkContainer } from "react-router-bootstrap";
+// Icons
+import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
 
 const Profile = () => {
   // Requested data
@@ -172,9 +174,8 @@ const Profile = () => {
               <h1>{ user.username }</h1>
               {authUser && (authUser._id !== id) &&
                 <Button
-                  variant={(followed ? "outline-primary" : "primary")}
                   onClick={ handleFollow }>
-                  {followed ? "Unfollow" : "Follow"}
+                  {followed ? <span><AiFillMinusCircle /> Unollow</span> : <span><AiFillPlusCircle /> Follow</span>}
                 </Button>
               }
             </div>
@@ -195,26 +196,26 @@ const Profile = () => {
           </Col>
 
           <Col id="profile-sec-2" sm={ 12 } md={ 6 }>
-              <Table id="profile-stats" striped bordered  size="sm">
-                <tbody>
-                  <tr>
-                    <td>Posts</td>
-                    <td>{ postCount }</td>
-                  </tr>
-                  <tr>
-                    <td>Comments</td>
-                    <td>{ commentCount }</td>
-                  </tr>
-                  <tr>
-                    <td>Likes</td>
-                    <td>{ likeCount }</td>
-                  </tr>
-                  <tr>
-                    <td>Dislikes</td>
-                    <td>{ dislikeCount }</td>
-                  </tr>
-                </tbody>
-              </Table>
+            <Table id="profile-stats" striped bordered  size="sm">
+              <tbody>
+                <tr>
+                  <td>Posts</td>
+                  <td>{ postCount }</td>
+                </tr>
+                <tr>
+                  <td>Comments</td>
+                  <td>{ commentCount }</td>
+                </tr>
+                <tr>
+                  <td>Likes</td>
+                  <td>{ likeCount }</td>
+                </tr>
+                <tr>
+                  <td>Dislikes</td>
+                  <td>{ dislikeCount }</td>
+                </tr>
+              </tbody>
+            </Table>
           </Col>
         </Row>
 

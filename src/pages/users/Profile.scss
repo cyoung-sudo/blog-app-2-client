@@ -1,15 +1,37 @@
+#profile {
+  margin: 1rem 0;
+}
+
 #profile-sec-1 {
-  background-color: red;
+  margin-bottom: 1rem;
 }
 
 #profile-sec-2 {
-  background-color: green;
+  margin-bottom: 1rem;
 }
 
 #profile-sec-3 {
-  background-color: blue;
+  margin-bottom: 1rem;
 }
 
-#profile-header > h1 {
-  display: inline;
+#profile-header {
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+#profile-follows {
+  text-align: center;
+  > a {
+    margin: 0 0.5rem;
+  }
+}
+
+#profile-stats {
+  height: 100%;
+}
+
+#profile-posts {
+  > h2 {
+    text-align: center;
+  }
 }
