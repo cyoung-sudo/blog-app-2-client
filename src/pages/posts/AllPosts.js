@@ -10,6 +10,8 @@ import PostAPI from "../../apis/PostAPI";
 import PostsDisplay from "../../components/displays/PostsDisplay";
 import Loading from "../../components/static/Loading";
 import EmptyList from "../../components/static/EmptyList";
+// Bootstrap
+import Container from "react-bootstrap/Container";
 
 const AllPosts = () => {
   // Requested data
@@ -46,10 +48,10 @@ const AllPosts = () => {
           <h1>Posts</h1>
         </div>
   
-        <div id="allPosts-list-wrapper">
+        <Container id="allPosts-list-wrapper">
           {posts.length > 0 && <PostsDisplay posts={ posts } />}
           {posts.length <= 0 && <EmptyList listItem="post" />}
-        </div>
+        </Container>
       </div>
     );
   }

@@ -10,6 +10,8 @@ import UserAPI from "../../apis/UserAPI";
 import UsersDisplay from "../../components/displays/UsersDisplay";
 import Loading from "../../components/static/Loading";
 import EmptyList from "../../components/static/EmptyList";
+// Bootstrap
+import Container from "react-bootstrap/Container";
 
 const AllUsers = () => {
   // Requested data
@@ -46,10 +48,10 @@ const AllUsers = () => {
           <h1>Users</h1>
         </div>
   
-        <div id="allUsers-list-wrapper">
+        <Container id="allUsers-list-wrapper">
           {users.length > 0 && <UsersDisplay users={ users }/>}
           {users.length <= 0 && <EmptyList listItem="user" />}
-        </div>
+        </Container>
       </div>
     );
   }

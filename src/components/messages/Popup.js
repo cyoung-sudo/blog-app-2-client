@@ -32,7 +32,7 @@ const Popup = () => {
 
   if(message && type) {
     return (
-      <div id="popup">
+      <div className="popup">
         <Alert variant={ type }>
           { message }
         </Alert>
