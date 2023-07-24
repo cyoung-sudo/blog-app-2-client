@@ -44,7 +44,7 @@ const AllFollowers = () => {
         // Retrieve users from given followers
         let promises = [];
         for(let follow of res.data.followers) {
-          promises.push(UserAPI.getUser(follow.followedId));
+          promises.push(UserAPI.getUser(follow.followerId));
         }
         return Promise.all(promises);
       } else {
