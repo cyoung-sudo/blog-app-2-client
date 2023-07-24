@@ -91,8 +91,6 @@ const NavigationBar = () => {
                   <NavDropdown.Item>Login</NavDropdown.Item>
                 </LinkContainer>
 
-                <NavDropdown.Divider />
-
                 <LinkContainer to="/signup">
                   <NavDropdown.Item>Signup</NavDropdown.Item>
                 </LinkContainer>
@@ -100,9 +98,9 @@ const NavigationBar = () => {
             }
 
             {authUser &&
-              <button onClick={ handleLogout }>
+              <Nav.Link onClick={ handleLogout }>
                 Logout
-              </button>
+              </Nav.Link>
             }
           </Nav>
         </Navbar.Collapse>
