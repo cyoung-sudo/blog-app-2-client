@@ -39,7 +39,9 @@ const AllUsers = () => {
       if(res.data.success) {
         setUsers(res.data.users);
         // Set pages
-        setPages(Math.ceil(res.data.users.length / pageMax));
+        if(res.data.users.length > 0) {
+          setPages(Math.ceil(res.data.users.length / pageMax));
+        }
         // Set page content
         let content = handlePagination(res.data.users, page, pageMax);
         setPageContent(content);

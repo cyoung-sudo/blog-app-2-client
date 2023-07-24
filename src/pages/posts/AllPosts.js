@@ -38,11 +38,13 @@ const AllPosts = () => {
     .then(res => {
       if(res.data.success) {
         setPosts(res.data.posts);
-         // Set pages
-         setPages(Math.ceil(res.data.posts.length / pageMax));
-         // Set page content
-         let content = handlePagination(res.data.posts, page, pageMax);
-         setPageContent(content);
+        // Set pages
+        if(res.data.posts.length > 0) {
+          setPages(Math.ceil(res.data.posts.length / pageMax));
+        }
+        // Set page content
+        let content = handlePagination(res.data.posts, page, pageMax);
+        setPageContent(content);
         setLoading(false);
       } else {
         dispatch(setPopup({

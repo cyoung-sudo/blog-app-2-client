@@ -63,7 +63,9 @@ const AllFollows = () => {
       }
       setFollows(followedUsers);
       // Set pages
-      setPages(Math.ceil(followedUsers.length / pageMax));
+      if(followedUsers.length > 0) {
+        setPages(Math.ceil(followedUsers.length / pageMax));
+      }
       // Set page content
       let content = handlePagination(followedUsers, page, pageMax);
       setPageContent(content);

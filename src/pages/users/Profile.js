@@ -79,7 +79,9 @@ const Profile = () => {
         setUserPosts(res.data.posts);
         setPostCount(res.data.posts.length);
         // Set pages
-        setPages(Math.ceil(res.data.posts.length / pageMax));
+        if(res.data.posts.length > 0) {
+          setPages(Math.ceil(res.data.posts.length / pageMax));
+        }
         // Set page content
         let content = handlePagination(res.data.posts, page, pageMax);
         setPageContent(content);
@@ -243,11 +245,11 @@ const Profile = () => {
         </Row>
 
         <Row id="profile-sec-3">
-          <div id="profile-posts-wrapper">
+          <Container id="profile-posts-wrapper">
             <h2>Posts</h2>
             {pageContent.length > 0 && <PostsDisplay posts={ pageContent } />}
             {pageContent.length <= 0 && <EmptyList listItem="post" />}
-          </div>
+          </Container>
 
           <Container id="profile-pagination-wrapper">
             <Pagination 

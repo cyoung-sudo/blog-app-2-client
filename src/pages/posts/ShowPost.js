@@ -15,13 +15,18 @@ import CommentAPI from "../../apis/CommentAPI";
 // Components
 import CommentForm from "../../components/forms/CommentForm";
 import CommentsDisplay from "../../components/displays/CommentsDisplay";
+import Pagination from "../../components/pagination/Pagination";
 import Loading from "../../components/static/Loading";
+// Utils
+import { handlePagination } from "../../utils/paginationUtils";
 // Bootstrap
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 // Icons
 import { AiFillLike, AiFillDislike, AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 
+// Items/page
+const pageMax = 2;
 
 const ShowPost = () => {
   // Requested data
@@ -33,6 +38,10 @@ const ShowPost = () => {
   const [disliked, setDisliked] = useState(null);
   // Controlled inputs
   const [comment, setComment] = useState("");
+  // Pagination
+  const [page, setPage] = useState(1);
+  const [pages, setPages] = useState(1);
+  const [pageContent, setPageContent] = useState([]);
   // Loading status
   const [loading, setLoading] = useState(true);
   // Manual refresh
@@ -97,6 +106,13 @@ const ShowPost = () => {
     .then(res => {
       if(res.data.success) {
         setComments(res.data.comments);
+        // Set pages
+        if(res.data.comments.length > 0) {
+          setPages(Math.ceil(res.data.comments.length / pageMax));
+        }
+        // Set page content
+        let content = handlePagination(res.data.comments, page, pageMax);
+        setPageContent(content);
       } else {
         throw new Error("Failed to retrieve post data");
       }
@@ -109,6 +125,14 @@ const ShowPost = () => {
       }));
     });
   }, [refresh]);
+
+  //----- Set page content on page change
+  useEffect(() => {
+    if(comments) {
+      let content = handlePagination(comments, page, pageMax);
+      setPageContent(content);
+    }
+  }, [page]);
 
   //----- Toggle like for post
   const handleLike = () => {
@@ -294,7 +318,17 @@ const ShowPost = () => {
               setComment={ setComment }
               handleComment={ handleComment }/>
           }
-          <CommentsDisplay comments={ comments } />
+
+          <Container id="showPost-comments-wrapper">
+            <CommentsDisplay comments={ pageContent } />
+          </Container>
+
+          <Container id="showPost-pagination-wrapper">
+            <Pagination 
+              page={ page }
+              pages={ pages }
+              setPage={ setPage }/>
+          </Container>
         </div>
       </Container>
     );
