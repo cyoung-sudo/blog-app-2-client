@@ -11,12 +11,24 @@ import UserAPI from "../../apis/UserAPI";
 import FollowAPI from "../../apis/FollowAPI";
 // Components
 import UsersDisplay from "../../components/displays/UsersDisplay";
+import Pagination from "../../components/pagination/Pagination";
 import Loading from "../../components/static/Loading";
 import EmptyList from "../../components/static/EmptyList";
+// Utils
+import { handlePagination } from "../../utils/paginationUtils";
+// Bootstrap
+import Container from "react-bootstrap/Container";
+
+// Items/page
+const pageMax = 1;
 
 const AllFollows = () => {
   // Requested data
   const [follows, setFollows] = useState(null);
+  // Pagination
+  const [page, setPage] = useState(1);
+  const [pages, setPages] = useState(1);
+  const [pageContent, setPageContent] = useState([]);
   // Loading status
   const [loading, setLoading] = useState(true);
   // Hooks
@@ -50,6 +62,11 @@ const AllFollows = () => {
         }
       }
       setFollows(followedUsers);
+      // Set pages
+      setPages(Math.ceil(followedUsers.length / pageMax));
+      // Set page content
+      let content = handlePagination(followedUsers, page, pageMax);
+      setPageContent(content);
       setLoading(false);
     })
     .catch(err => {
@@ -60,6 +77,14 @@ const AllFollows = () => {
     });
   }, []);
 
+  //----- Set page content on page change
+  useEffect(() => {
+    if(follows) {
+      let content = handlePagination(follows, page, pageMax);
+      setPageContent(content);
+    }
+  }, [page]);
+
   if(loading) {
     return <Loading message="Loading follow data" />
   } else {
@@ -69,10 +94,17 @@ const AllFollows = () => {
           <h1>Following</h1>
         </div>
   
-        <div id="allFollows-list-wrapper">
-          {follows.length > 0 && <UsersDisplay users={ follows } />}
-          {follows.length <= 0 && <EmptyList listItem="follow" />}
-        </div>
+        <Container id="allFollows-list-wrapper">
+          {pageContent.length > 0 && <UsersDisplay users={ pageContent } />}
+          {pageContent.length <= 0 && <EmptyList listItem="follow" />}
+        </Container>
+
+        <Container id="allFollows-pagination-wrapper">
+          <Pagination 
+            page={ page }
+            pages={ pages }
+            setPage={ setPage }/>
+        </Container>
       </div>
     );
   }

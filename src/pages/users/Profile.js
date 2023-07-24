@@ -16,8 +16,11 @@ import CommentAPI from "../../apis/CommentAPI";
 import FollowAPI from "../../apis/FollowAPI";
 // Components
 import PostsDisplay from "../../components/displays/PostsDisplay";
+import Pagination from "../../components/pagination/Pagination";
 import Loading from "../../components/static/Loading";
 import EmptyList from "../../components/static/EmptyList";
+// Utils
+import { handlePagination } from "../../utils/paginationUtils";
 // Bootstrap
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -28,6 +31,9 @@ import Button from "react-bootstrap/Button";
 import { LinkContainer } from "react-router-bootstrap";
 // Icons
 import { AiFillPlusCircle, AiFillMinusCircle } from "react-icons/ai";
+
+// Items/page
+const pageMax = 2;
 
 const Profile = () => {
   // Requested data
@@ -40,6 +46,10 @@ const Profile = () => {
   const [commentCount, setCommentCount] = useState(null);
   const [likeCount, setLikeCount] = useState(null);
   const [dislikeCount, setDislikeCount] = useState(null);
+  // Pagination
+  const [page, setPage] = useState(1);
+  const [pages, setPages] = useState(1);
+  const [pageContent, setPageContent] = useState([]);
   // Loading status
   const [loading, setLoading] = useState(true);
   // Manual refresh
@@ -68,6 +78,11 @@ const Profile = () => {
       if(res.data.success) {
         setUserPosts(res.data.posts);
         setPostCount(res.data.posts.length);
+        // Set pages
+        setPages(Math.ceil(res.data.posts.length / pageMax));
+        // Set page content
+        let content = handlePagination(res.data.posts, page, pageMax);
+        setPageContent(content);
         // Retrieve user follows
         return FollowAPI.getForFollower(id);
       } else {
@@ -135,6 +150,14 @@ const Profile = () => {
       }));
     })
   }, [refresh, id]);
+
+  //----- Set page content on page change
+  useEffect(() => {
+    if(userPosts) {
+      let content = handlePagination(userPosts, page, pageMax);
+      setPageContent(content);
+    }
+  }, [page]);
 
   //----- Toggle user follow
   const handleFollow = () => {
@@ -220,11 +243,18 @@ const Profile = () => {
         </Row>
 
         <Row id="profile-sec-3">
-          <div id="profile-posts">
+          <div id="profile-posts-wrapper">
             <h2>Posts</h2>
-            {userPosts.length > 0 && <PostsDisplay posts={ userPosts } />}
-            {userPosts.length <= 0 && <EmptyList listItem="post" />}
+            {pageContent.length > 0 && <PostsDisplay posts={ pageContent } />}
+            {pageContent.length <= 0 && <EmptyList listItem="post" />}
           </div>
+
+          <Container id="profile-pagination-wrapper">
+            <Pagination 
+              page={ page }
+              pages={ pages }
+              setPage={ setPage }/>
+          </Container>
         </Row>
       </Container>
     );
