@@ -54,16 +54,6 @@ const PostAPI = {
     });
 
     return res;
-  },
-
-  //----- Delete all user posts
-  deleteAllForUser: async userId => {
-    const res = await api.request({
-      method: "DELETE",
-      url: `/api/posts/user/${ userId }`
-    });
-
-    return res;
   }
 };
 

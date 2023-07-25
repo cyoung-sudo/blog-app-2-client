@@ -33,16 +33,6 @@ const FollowAPI = {
     });
 
     return res;
-  },
-
-  //----- Delete all user follows
-  deleteAllForUser: async userId => {
-    const res = await api.request({
-      method: "DELETE",
-      url: `/api/follows/user/${ userId }`
-    });
-
-    return res;
   }
 };
 

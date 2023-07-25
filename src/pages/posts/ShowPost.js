@@ -229,34 +229,10 @@ const ShowPost = () => {
     AuthAPI.getAuthUser()
     .then(res => {
       if(res.data.success) {
-        // Delete all post likes
-        return LikeAPI.deleteAllForPost(id);
-      } else {
-        throw new Error("Invalid session");
-      }
-    })
-    .then(res => {
-      if(res.data.success) {
-        // Delete all post dislikes
-        return DislikeAPI.deleteAllForPost(id);
-      } else {
-        throw new Error("Failed to delete post");
-      }
-    })
-    .then(res => {
-      if(res.data.success) {
-        // Delete all post comments
-        return CommentAPI.deleteAllForPost(id);
-      } else {
-        throw new Error("Failed to delete post");
-      }
-    })
-    .then(res => {
-      if(res.data.success) {
         // Delete post
         return PostAPI.deletePost(id);
       } else {
-        throw new Error("Failed to delete post");
+        throw new Error("Invalid session");
       }
     })
     .then(res => {

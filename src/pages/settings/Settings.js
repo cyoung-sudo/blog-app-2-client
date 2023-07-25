@@ -8,11 +8,6 @@ import { setPopup } from "../../reducers/popupSlice";
 // APIs
 import AuthAPI from "../../apis/AuthAPI";
 import UserAPI from "../../apis/UserAPI";
-import PostAPI from "../../apis/PostAPI";
-import LikeAPI from "../../apis/LikeAPI";
-import DislikeAPI from "../../apis/DislikeAPI";
-import CommentAPI from "../../apis/CommentAPI";
-import FollowAPI from "../../apis/FollowAPI";
 // Bootstrap
 import Button from "react-bootstrap/Button";
 
@@ -28,49 +23,10 @@ const Settings = () => {
     AuthAPI.getAuthUser()
     .then(res => {
       if(res.data.success) {
-        // Delete all user comments
-        return CommentAPI.deleteAllForUser(authUser._id);
-      } else {
-        throw new Error("Invalid session");
-      }
-    })
-    .then(res => {
-      if(res.data.success) {
-        // Delete all user likes
-        return LikeAPI.deleteAllForUser(authUser._id);
-      } else {
-        throw new Error("Failed to delete account");
-      }
-    })
-    .then(res => {
-      if(res.data.success) {
-        // Delete all user dislikes
-        return DislikeAPI.deleteAllForUser(authUser._id);
-      } else {
-        throw new Error("Failed to delete account");
-      }
-    }).then(res => {
-      if(res.data.success) {
-        // Delete all user posts
-        return PostAPI.deleteAllForUser(authUser._id);
-      } else {
-        throw new Error("Failed to delete account");
-      }
-    })
-    .then(res => {
-      if(res.data.success) {
-        // Delete all user follows
-        return FollowAPI.deleteAllForUser(authUser._id);
-      } else {
-        throw new Error("Failed to delete account");
-      }
-    })
-    .then(res => {
-      if(res.data.success) {
         // Delete user
         return UserAPI.deleteUser(authUser._id);
       } else {
-        throw new Error("Failed to delete account");
+        throw new Error("Invalid session");
       }
     })
     .then(res => {
