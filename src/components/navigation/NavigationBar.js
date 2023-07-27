@@ -3,6 +3,7 @@ import "./NavigationBar.scss";
 import { useNavigate } from "react-router-dom";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
+import { setPopup } from "../../reducers/popupSlice";
 import { resetAuthUser } from "../../reducers/sessionSlice";
 // APIs
 import AuthAPI from "../../apis/AuthAPI";
@@ -26,10 +27,12 @@ const NavigationBar = () => {
     AuthAPI.logout()
     .then(res => {
       if(res.data.success) {
-        console.log("Logged out");
-
         // Reset authenticated user state
         dispatch(resetAuthUser());
+        dispatch(setPopup({
+          message: "Logged out",
+          type: "danger"
+        }));
         navigate("/");
       }
     })

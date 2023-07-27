@@ -26,7 +26,7 @@ import Button from "react-bootstrap/Button";
 import { AiFillLike, AiFillDislike, AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 
 // Items/page
-const pageMax = 2;
+const pageMax = 5;
 
 const ShowPost = () => {
   // Requested data
@@ -105,7 +105,9 @@ const ShowPost = () => {
     })
     .then(res => {
       if(res.data.success) {
-        setComments(res.data.comments);
+        // Order by newest first
+        let orderedComments = res.data.comments.reverse();
+        setComments(orderedComments);
         // Set pages
         if(res.data.comments.length > 0) {
           setPages(Math.ceil(res.data.comments.length / pageMax));

@@ -17,7 +17,7 @@ import { handlePagination } from "../../utils/paginationUtils";
 import Container from "react-bootstrap/Container";
 
 // Items/page
-const pageMax = 3;
+const pageMax = 5;
 
 const AllUsers = () => {
   // Requested data
@@ -37,7 +37,9 @@ const AllUsers = () => {
     UserAPI.getAll()
     .then(res => {
       if(res.data.success) {
-        setUsers(res.data.users);
+        // Order by newest first
+        let orderedUsers = res.data.users.reverse();
+        setUsers(orderedUsers);
         // Set pages
         if(res.data.users.length > 0) {
           setPages(Math.ceil(res.data.users.length / pageMax));

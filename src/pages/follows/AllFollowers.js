@@ -20,7 +20,7 @@ import { handlePagination } from "../../utils/paginationUtils";
 import Container from "react-bootstrap/Container";
 
 // Items/page
-const pageMax = 1;
+const pageMax = 5;
 
 const AllFollowers = () => {
   // Requested data
@@ -61,6 +61,8 @@ const AllFollowers = () => {
           throw new Error("Failed to retrieve followers");
         }
       }
+      // Order by newest first
+      followingUsers = followingUsers.reverse();
       setFollowers(followingUsers);
       // Set pages
       if(followingUsers.length > 0) {

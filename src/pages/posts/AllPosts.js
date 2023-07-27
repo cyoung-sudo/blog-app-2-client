@@ -17,7 +17,7 @@ import { handlePagination } from "../../utils/paginationUtils";
 import Container from "react-bootstrap/Container";
 
 // Items/page
-const pageMax = 2;
+const pageMax = 5;
 
 const AllPosts = () => {
   // Requested data
@@ -37,7 +37,9 @@ const AllPosts = () => {
     PostAPI.getAll()
     .then(res => {
       if(res.data.success) {
-        setPosts(res.data.posts);
+        // Order by newest first
+        let orderedPosts = res.data.posts.reverse();
+        setPosts(orderedPosts);
         // Set pages
         if(res.data.posts.length > 0) {
           setPages(Math.ceil(res.data.posts.length / pageMax));

@@ -31,7 +31,7 @@ const Pagination = ({ page, pages, setPage }) => {
     // Go to last page
     temp.push(<Pagi.Last key={ 5 } onClick={() => setPage(pages)}/>);
     setItems(temp);
-  }, [page]);
+  }, [page, pages]);
 
   return (
     <div className="pagination">
