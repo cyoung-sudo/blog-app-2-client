@@ -3,15 +3,23 @@
 }
 
 #profile-sec-1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   margin-bottom: 1rem;
+  padding: 1rem;
 }
 
 #profile-sec-2 {
+  display: flex;
+  align-items: center;
   margin-bottom: 1rem;
+  padding: 1rem;
 }
 
 #profile-sec-3 {
   margin-bottom: 1rem;
+  padding: 1rem;
 }
 
 #profile-header {
@@ -19,15 +27,21 @@
   text-align: center;
 }
 
+.profile-header-date {
+  font-weight: 300;
+  font-style: italic;
+}
+
 #profile-follows {
   text-align: center;
   > a {
-    margin: 0 0.5rem;
+    margin: 0 0.3rem;
   }
 }
 
 #profile-stats {
-  height: 100%;
+  height: 90%;
+  margin-bottom: 0;
 }
 
 #profile-posts-wrapper {
@@ -39,5 +53,4 @@
 #profile-pagination-wrapper {
   display: flex;
   justify-content: center;
-  margin-bottom: 1rem;
 }

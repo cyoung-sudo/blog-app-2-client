@@ -200,6 +200,7 @@ const Profile = () => {
             <Col id="profile-sec-1" sm={ 12 } md={ 6 }>
               <div id="profile-header">
                 <h1>{ user.username }</h1>
+                <div className="profile-header-date">{ new Date(user.createdAt).toDateString() }</div>
                 {authUser && (authUser._id !== id) &&
                   <Button
                     onClick={ handleFollow }>

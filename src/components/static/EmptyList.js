@@ -1,9 +1,15 @@
 import "./EmptyList.scss";
+// Bootstrap
+import Card from "react-bootstrap/Card";
 
 const EmptyList = ({ listItem }) => {
   return (
     <div id="emptyList">
-      <h1>No { listItem }'s...</h1>
+      <Card>
+        <Card.Body>
+          <Card.Title>No { listItem }'s...</Card.Title>
+        </Card.Body>
+      </Card>
     </div>
   );
 }

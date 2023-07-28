@@ -34,7 +34,7 @@ const Pagination = ({ page, pages, setPage }) => {
   }, [page, pages]);
 
   return (
-    <div className="pagination">
+    <div className="paginationComp">
       <Pagi>{ items }</Pagi>
     </div>
   );
