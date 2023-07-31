@@ -1,0 +1,40 @@
+#settings {
+  margin-top: 1rem;
+  > div {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+#settings-sec-1 {
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
+#settings-header {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+#settings-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  > li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    > button > svg {
+      margin-right: 0.3rem;
+    }
+  }
+}
+
+.settings-title {
+  font-weight: bold;
+}
+
+.settings-desc {
+  font-weight: 300;
+  font-style: italic;
+}

@@ -13,6 +13,8 @@ import AuthForm from "../../components/forms/AuthForm";
 import AuthAPI from "../../apis/AuthAPI";
 // Bootstrap
 import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 const Login = () => {
   // Controlled inputs
@@ -56,18 +58,22 @@ const Login = () => {
   };
 
   return (
-    <div id="login">
-      <div id="login-header">
-        <h1>Login</h1>
-      </div>
+    <Container id="login">
+      <Row>
+        <Col id="login-sec-1" sm={ 12 } md={ 10 } lg={ 8 }>
+          <div id="login-header">
+            <h1>Login</h1>
+          </div>
 
-      <Container id="login-form-wrapper">
-        <AuthForm
-          setUsername={ setUsername }
-          setPassword={ setPassword }
-          handleSubmit={ handleSubmit } />
-      </Container>
-    </div>
+          <div id="login-form-wrapper">
+            <AuthForm
+              setUsername={ setUsername }
+              setPassword={ setPassword }
+              handleSubmit={ handleSubmit } />
+          </div>
+        </Col>
+      </Row>
+    </Container>
   )
 };
 

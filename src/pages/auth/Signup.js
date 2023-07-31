@@ -12,6 +12,8 @@ import AuthForm from "../../components/forms/AuthForm";
 import UserAPI from "../../apis/UserAPI";
 // Bootstrap
 import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 const Signup = () => {
   // Controlled inputs
@@ -53,18 +55,22 @@ const Signup = () => {
   };
 
   return (
-    <div id="signup">
-      <div id="signup-header">
-        <h1>Signup</h1>
-      </div>
+    <Container id="signup">
+      <Row>
+        <Col id="signup-sec-1" sm={ 12 } md={ 10 } lg={ 8 }>
+          <div id="signup-header">
+            <h1>Signup</h1>
+          </div>
 
-      <Container id="signup-form-wrapper">
-        <AuthForm
-          setUsername={ setUsername }
-          setPassword={ setPassword }
-          handleSubmit={ handleSubmit } />
-      </Container>
-    </div>
+          <div id="signup-form-wrapper">
+            <AuthForm
+              setUsername={ setUsername }
+              setPassword={ setPassword }
+              handleSubmit={ handleSubmit } />
+          </div>
+        </Col>
+      </Row>
+    </Container>
   )
 };
 

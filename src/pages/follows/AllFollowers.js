@@ -18,6 +18,8 @@ import EmptyList from "../../components/static/EmptyList";
 import { handlePagination } from "../../utils/paginationUtils";
 // Bootstrap
 import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 // Items/page
 const pageMax = 5;
@@ -93,23 +95,27 @@ const AllFollowers = () => {
     return <Loading message="Loading follow data" />
   } else {
     return (
-      <div id="allFollowers">
-        <div id="allFollowers-header">
-          <h1>Followers</h1>
-        </div>
-  
-        <Container id="allFollowers-list-wrapper">
-          {pageContent.length > 0 && <UsersDisplay users={ pageContent }/>}
-          {pageContent.length <= 0 && <EmptyList listItem="follower" />}
-        </Container>
+      <Container id="allFollowers">
+        <Row>
+          <Col id="allFollowers-sec-1" sm={ 12 } md={ 10 } lg={ 8 }>
+            <div id="allFollowers-header">
+              <h1>Followers</h1>
+            </div>
+      
+            <div id="allFollowers-list-wrapper">
+              {pageContent.length > 0 && <UsersDisplay users={ pageContent }/>}
+              {pageContent.length <= 0 && <EmptyList listItem="follower" />}
+            </div>
 
-        <Container id="allFollowers-pagination-wrapper">
-          <Pagination 
-            page={ page }
-            pages={ pages }
-            setPage={ setPage }/>
-        </Container>
-      </div>
+            <div id="allFollowers-pagination-wrapper">
+              <Pagination 
+                page={ page }
+                pages={ pages }
+                setPage={ setPage }/>
+            </div>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 };

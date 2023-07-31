@@ -1,4 +1,17 @@
+#newPost {
+  margin-top: 1rem;
+  > div {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+#newPost-sec-1 {
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
 #newPost-header {
-  margin: 1rem 0;
+  margin-bottom: 1rem;
   text-align: center;
 }

@@ -8,8 +8,13 @@ import { setPopup } from "../../reducers/popupSlice";
 // APIs
 import AuthAPI from "../../apis/AuthAPI";
 import UserAPI from "../../apis/UserAPI";
-// Bootstrap
+// Bootstrap// Bootstrap
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+// Icons
+import { BsTrashFill } from "react-icons/bs";
 
 const Settings = () => {
   // Hooks
@@ -59,18 +64,27 @@ const Settings = () => {
   };
 
   return (
-    <div id="settings">
-      <div id="settings-header">
-        <h1>Settings</h1>
-      </div>
+    <Container id="settings">
+      <Row>
+        <Col id="settings-sec-1" sm={ 12 } md={ 10 } lg={ 8 }>
+          <div id="settings-header">
+            <h1>Settings</h1>
+          </div>
 
-      <ul id="settings-list">
-        <li>
-          <div>Delete Account?</div>
-          <Button onClick={ handleAccountDelete }>Delete</Button>
-        </li>
-      </ul>
-    </div>
+          <ul id="settings-list">
+            <li>
+              <div>
+                <div className="settings-title">Delete Account?</div>
+                <div className="settings-desc">All posts, comments, likes, & follows will be deleted</div>
+              </div>
+              <Button onClick={ handleAccountDelete } variant="danger">
+                <BsTrashFill/>Delete
+              </Button>
+            </li>
+          </ul>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

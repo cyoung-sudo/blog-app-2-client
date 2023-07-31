@@ -1,10 +1,22 @@
+#allFollowers {
+  margin-top: 1rem;
+  > div {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+#allFollowers-sec-1 {
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
 #allFollowers-header {
-  margin: 1rem 0;
+  margin-bottom: 1rem;
   text-align: center;
 }
 
 #allFollowers-pagination-wrapper {
   display: flex;
   justify-content: center;
-  margin-bottom: 1rem;
 }

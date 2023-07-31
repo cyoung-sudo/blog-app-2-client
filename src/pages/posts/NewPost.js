@@ -13,6 +13,8 @@ import PostAPI from "../../apis/PostAPI";
 import PostForm from "../../components/forms/PostForm";
 // Bootstrap
 import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 const NewPost = () => {
   // Controlled inputs
@@ -58,18 +60,22 @@ const NewPost = () => {
   };
 
   return (
-    <div id="newPost">
-      <div id="newPost-header">
-        <h1>Create Post</h1>
-      </div>
+    <Container id="newPost">
+      <Row>
+        <Col id="newPost-sec-1" sm={ 12 } md={ 10 } lg={ 8 }>
+          <div id="newPost-header">
+            <h1>Create Post</h1>
+          </div>
 
-      <Container id="newPost-form-wrapper">
-        <PostForm 
-          setTitle={ setTitle }
-          setDesc={ setDesc }
-          handleSubmit={ handleSubmit }/>
-      </Container>
-    </div>
+          <div id="newPost-form-wrapper">
+            <PostForm 
+              setTitle={ setTitle }
+              setDesc={ setDesc }
+              handleSubmit={ handleSubmit }/>
+          </div>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

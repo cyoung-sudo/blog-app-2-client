@@ -15,6 +15,8 @@ import EmptyList from "../../components/static/EmptyList";
 import { handlePagination } from "../../utils/paginationUtils";
 // Bootstrap
 import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 // Items/page
 const pageMax = 5;
@@ -70,23 +72,27 @@ const AllPosts = () => {
     return <Loading message="Loading posts" />
   } else {
     return (
-      <div id="allPosts">
-        <div id="allPosts-header">
-          <h1>Posts</h1>
-        </div>
-  
-        <Container id="allPosts-list-wrapper">
-          {pageContent.length > 0 && <PostsDisplay posts={ pageContent } />}
-          {pageContent.length <= 0 && <EmptyList listItem="post" />}
-        </Container>
+      <Container id="allPosts">
+        <Row>
+          <Col id="allPosts-sec-1" sm={ 12 } md={ 10 } lg={ 8 }>
+            <div id="allPosts-header">
+              <h1>Posts</h1>
+            </div>
+      
+            <div id="allPosts-list-wrapper">
+              {pageContent.length > 0 && <PostsDisplay posts={ pageContent } />}
+              {pageContent.length <= 0 && <EmptyList listItem="post" />}
+            </div>
 
-        <Container id="allPosts-pagination-wrapper">
-          <Pagination 
-            page={ page }
-            pages={ pages }
-            setPage={ setPage }/>
-        </Container>
-      </div>
+            <div id="allPosts-pagination-wrapper">
+              <Pagination 
+                page={ page }
+                pages={ pages }
+                setPage={ setPage }/>
+            </div>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 };
