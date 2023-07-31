@@ -21,9 +21,12 @@ import Loading from "../../components/static/Loading";
 import { handlePagination } from "../../utils/paginationUtils";
 // Bootstrap
 import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 // Icons
 import { AiFillLike, AiFillDislike, AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
+import { BsTrashFill } from "react-icons/bs";
 
 // Items/page
 const pageMax = 5;
@@ -261,53 +264,61 @@ const ShowPost = () => {
   } else {
     return (
       <Container id="showPost">
-        <div id="showPost-header">
-          <h1>{ post.title }</h1>
-          <div>{ post.desc }</div>
-        </div>
+        <Row>
+          <Col id="showPost-sec-1" sm={ 12 } md={ 6 }>
+            <div id="showPost-header">
+              <h1>{ post.title }</h1>
+              <div>{ post.desc }</div>
+            </div>
 
-        <div id="showPost-likes">
-          <Button 
-            onClick={ handleLike }
-            disabled={authUser ? false : true}>
-            {(!authUser || !liked) && <AiOutlineLike />}
-            {liked && <AiFillLike />}
-            { likes.length }
-          </Button>
-          <Button
-            onClick={ handleDislike }
-            disabled={authUser ? false : true}>
-            {(!authUser || !disliked) && <AiOutlineDislike />}
-            {disliked && <AiFillDislike />}
-            { dislikes.length }
-          </Button>
-        </div>
+            <div id="showPost-likes">
+              <Button 
+                onClick={ handleLike }
+                disabled={authUser ? false : true}>
+                {(!authUser || !liked) && <AiOutlineLike />}
+                {liked && <AiFillLike />}
+                { likes.length }
+              </Button>
+              <Button
+                onClick={ handleDislike }
+                disabled={authUser ? false : true}>
+                {(!authUser || !disliked) && <AiOutlineDislike />}
+                {disliked && <AiFillDislike />}
+                { dislikes.length }
+              </Button>
+            </div>
 
-        <div>
-          {authUser && (authUser._id === post.userId) &&
-            <Button onClick={ handleDelete }>Delete</Button>
-          }
-        </div>
+            <div id="showPost-options">
+              {authUser && (authUser._id === post.userId) &&
+                <Button onClick={ handleDelete } variant="danger">
+                  <BsTrashFill/>Delete
+                </Button>
+              }
+            </div>
+          </Col>
 
-        <div id="showPost-comments">
-          {authUser &&
-            <CommentForm
-              comment= { comment }
-              setComment={ setComment }
-              handleComment={ handleComment }/>
-          }
+          <Col id="showPost-sec-2" sm={ 12 } md={ 6 }>
+            <div id="showPost-comments">
+              {authUser &&
+                <CommentForm
+                  comment= { comment }
+                  setComment={ setComment }
+                  handleComment={ handleComment }/>
+              }
 
-          <Container id="showPost-comments-wrapper">
-            <CommentsDisplay comments={ pageContent } />
-          </Container>
+              <Container id="showPost-comments-wrapper">
+                <CommentsDisplay comments={ pageContent } />
+              </Container>
 
-          <Container id="showPost-pagination-wrapper">
-            <Pagination 
-              page={ page }
-              pages={ pages }
-              setPage={ setPage }/>
-          </Container>
-        </div>
+              <Container id="showPost-pagination-wrapper">
+                <Pagination 
+                  page={ page }
+                  pages={ pages }
+                  setPage={ setPage }/>
+              </Container>
+            </div>
+          </Col>
+        </Row>
       </Container>
     );
   }

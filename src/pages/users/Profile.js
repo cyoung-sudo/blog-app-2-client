@@ -194,76 +194,76 @@ const Profile = () => {
     return <Loading message="Loading user data" />;
   } else {
     return (
-      <div id="profile">
-        <Container>
-          <Row>
-            <Col id="profile-sec-1" sm={ 12 } md={ 6 }>
-              <div id="profile-header">
-                <h1>{ user.username }</h1>
-                <div className="profile-header-date">{ new Date(user.createdAt).toDateString() }</div>
-                {authUser && (authUser._id !== id) &&
-                  <Button
-                    onClick={ handleFollow }>
-                    {followed ? <span><AiFillMinusCircle /> Unollow</span> : <span><AiFillPlusCircle /> Follow</span>}
-                  </Button>
-                }
-              </div>
+      <Container id="profile">
+        <Row>
+          <Col id="profile-sec-1" sm={ 12 } md={ 6 }>
+            <div id="profile-header">
+              <h1>{ user.username }</h1>
+              <div className="profile-header-date">{ new Date(user.createdAt).toDateString() }</div>
+              {authUser && (authUser._id !== id) &&
+                <Button
+                  onClick={ handleFollow }>
+                  {followed ? <span><AiFillMinusCircle /> Unollow</span> : <span><AiFillPlusCircle /> Follow</span>}
+                </Button>
+              }
+            </div>
 
-              <div id="profile-follows">
-                <LinkContainer to={`/follows/${ id }`}>
-                  <Button>
-                    Following: { userFollows.length }
-                  </Button>
-                </LinkContainer>
+            <div id="profile-follows">
+              <LinkContainer to={`/follows/${ id }`}>
+                <Button>
+                  Following: { userFollows.length }
+                </Button>
+              </LinkContainer>
 
-                <LinkContainer to={`/followers/${ id }`}>
-                  <Button>
-                    Followers: { userFollowers.length }
-                  </Button>
-                </LinkContainer>
-              </div>
-            </Col>
+              <LinkContainer to={`/followers/${ id }`}>
+                <Button>
+                  Followers: { userFollowers.length }
+                </Button>
+              </LinkContainer>
+            </div>
+          </Col>
 
-            <Col id="profile-sec-2" sm={ 12 } md={ 6 }>
-              <Table id="profile-stats" striped bordered  size="sm">
-                <tbody>
-                  <tr>
-                    <td>Posts</td>
-                    <td>{ postCount }</td>
-                  </tr>
-                  <tr>
-                    <td>Comments</td>
-                    <td>{ commentCount }</td>
-                  </tr>
-                  <tr>
-                    <td>Likes</td>
-                    <td>{ likeCount }</td>
-                  </tr>
-                  <tr>
-                    <td>Dislikes</td>
-                    <td>{ dislikeCount }</td>
-                  </tr>
-                </tbody>
-              </Table>
-            </Col>
-          </Row>
+          <Col id="profile-sec-2" sm={ 12 } md={ 6 }>
+            <Table id="profile-stats" striped bordered  size="sm">
+              <tbody>
+                <tr>
+                  <td>Posts</td>
+                  <td>{ postCount }</td>
+                </tr>
+                <tr>
+                  <td>Comments</td>
+                  <td>{ commentCount }</td>
+                </tr>
+                <tr>
+                  <td>Likes</td>
+                  <td>{ likeCount }</td>
+                </tr>
+                <tr>
+                  <td>Dislikes</td>
+                  <td>{ dislikeCount }</td>
+                </tr>
+              </tbody>
+            </Table>
+          </Col>
+        </Row>
 
-          <Row id="profile-sec-3">
-            <Container id="profile-posts-wrapper">
+        <Row>
+          <Col id="profile-sec-3">
+            <div id="profile-posts-wrapper">
               <h2>Posts</h2>
               {pageContent.length > 0 && <PostsDisplay posts={ pageContent } />}
               {pageContent.length <= 0 && <EmptyList listItem="post" />}
-            </Container>
+            </div>
 
-            <Container id="profile-pagination-wrapper">
+            <div id="profile-pagination-wrapper">
               <Pagination 
                 page={ page }
                 pages={ pages }
                 setPage={ setPage }/>
-            </Container>
-          </Row>
-        </Container>
-      </div>
+            </div>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 };

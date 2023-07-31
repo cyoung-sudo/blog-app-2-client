@@ -1,25 +1,45 @@
+#showPost {
+  margin-top: 1rem;
+}
+
+#showPost-sec-1 {
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
+#showPost-sec-2 {
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
 #showPost-header {
-  margin: 1rem 0;
+  margin-bottom: 1rem;
   text-align: center;
 }
 
 #showPost-likes {
-  margin-bottom: 1rem;
   text-align: center;
   > button {
-    margin: 0 0.5rem;
+    margin: 0 0.3rem 0.5rem 0.3rem;
     > svg {
       margin-right: 0.3rem;
     }
   }
 }
 
+#showPost-options {
+  text-align: center;
+  > button > svg {
+    margin-right: 0.3rem;
+  }
+}
+
 #showPost-comments-wrapper {
+  padding: 0;
   margin-bottom: 1rem;
 }
 
 #showPost-pagination-wrapper {
   display: flex;
   justify-content: center;
-  margin-bottom: 1rem;
 }
