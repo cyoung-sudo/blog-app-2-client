@@ -29,34 +29,42 @@ const NewPost = () => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    // Retrieve authenticated user
-    AuthAPI.getAuthUser()
-    .then(res => {
-      if(res.data.success) {
-        let userId = res.data.user._id;
-        // Create post
-        return PostAPI.create(userId, title, desc);
-      } else {
-        throw new Error("Invalid session");
-      }
-    })
-    .then(res => {
-      if(res.data.success) {
-        dispatch(setPopup({
-          message: "Post created",
-          type: "success"
-        }));
-        navigate(`/users/${ authUser._id }`);
-      } else {
-        throw new Error("Failed to create post");
-      }
-    })
-    .catch(err => {
+    // Validations
+    if(title === "" || desc === "") {
       dispatch(setPopup({
-        message: err.message,
-        type: "danger"
+        message: "Missing required field",
+        type: "warning"
       }));
-    });
+    } else {
+      // Retrieve authenticated user
+      AuthAPI.getAuthUser()
+      .then(res => {
+        if(res.data.success) {
+          let userId = res.data.user._id;
+          // Create post
+          return PostAPI.create(userId, title, desc);
+        } else {
+          throw new Error("Invalid session");
+        }
+      })
+      .then(res => {
+        if(res.data.success) {
+          dispatch(setPopup({
+            message: "Post created",
+            type: "success"
+          }));
+          navigate(`/users/${ authUser._id }`);
+        } else {
+          throw new Error("Failed to create post");
+        }
+      })
+      .catch(err => {
+        dispatch(setPopup({
+          message: err.message,
+          type: "danger"
+        }));
+      });
+    }
   };
 
   return (

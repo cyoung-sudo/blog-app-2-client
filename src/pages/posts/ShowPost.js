@@ -268,7 +268,8 @@ const ShowPost = () => {
           <Col id="showPost-sec-1" sm={ 12 } md={ 6 }>
             <div id="showPost-header">
               <h1>{ post.title }</h1>
-              <div>{ post.desc }</div>
+              <div className="showPost-header-desc">{ post.desc }</div>
+              <div className="showPost-header-date">{ new Date(post.createdAt).toDateString() }</div>
             </div>
 
             <div id="showPost-likes">

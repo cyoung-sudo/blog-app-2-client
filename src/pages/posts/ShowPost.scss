@@ -17,6 +17,15 @@
   text-align: center;
 }
 
+.showPost-header-desc {
+  margin-bottom: 0.5rem;
+}
+
+.showPost-header-date {
+  font-weight: 300;
+  font-style: italic;
+}
+
 #showPost-likes {
   text-align: center;
   > button {
