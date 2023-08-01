@@ -8,6 +8,8 @@
 }
 
 #profile-sec-2 {
+  display: flex;
+  align-items: center;
   margin-bottom: 1rem;
   padding: 1rem;
 }
@@ -25,6 +27,11 @@
 .profile-header-date {
   font-weight: 300;
   font-style: italic;
+}
+
+#profile-follow {
+  margin-bottom: 0.5rem;
+  text-align: center;
 }
 
 #profile-follows {

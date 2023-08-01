@@ -200,13 +200,16 @@ const Profile = () => {
             <div id="profile-header">
               <h1>{ user.username }</h1>
               <div className="profile-header-date">{ new Date(user.createdAt).toDateString() }</div>
-              {authUser && (authUser._id !== id) &&
+            </div>
+
+            {authUser && (authUser._id !== id) &&
+              <div id="profile-follow">
                 <Button
                   onClick={ handleFollow }>
                   {followed ? <span><AiFillMinusCircle /> Unollow</span> : <span><AiFillPlusCircle /> Follow</span>}
                 </Button>
-              }
-            </div>
+              </div>
+            }
 
             <div id="profile-follows">
               <LinkContainer to={`/follows/${ id }`}>
