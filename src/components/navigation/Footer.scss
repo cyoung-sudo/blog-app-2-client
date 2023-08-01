@@ -11,14 +11,21 @@
 
 #footer {
   > ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     list-style: none;
+    margin: 0;
     padding: 0;
+    > div {
+      color: white;
+      font-weight: bold;
+    }
   }
-
   a {
     color: white;
     text-decoration: none;
-
     &:hover {
       text-decoration: underline;
     }

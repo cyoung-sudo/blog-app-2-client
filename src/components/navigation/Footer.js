@@ -4,12 +4,9 @@ const Footer = () => {
   return (
     <footer id="footer">
       <ul>
+        <div>Credits</div>
         <li>
-          <a href="#">Link 1</a>
-        </li>
-
-        <li>
-          <a href="#">Link 2</a>
+          <a href="https://www.flaticon.com/free-icons/post" title="post icons">Post icons created by Pixel perfect - Flaticon</a>
         </li>
       </ul>
     </footer>
