@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { setPopup } from "../../reducers/popupSlice";
+import { resetAuthUser } from "../../reducers/sessionSlice";
 // APIs
 import AuthAPI from "../../apis/AuthAPI";
 import UserAPI from "../../apis/UserAPI";
@@ -183,6 +184,11 @@ const Profile = () => {
       }
     })
     .catch(err => {
+      if(err.message === "Invalid session") {
+        // Reset authenticated user state
+        dispatch(resetAuthUser());
+        navigate("/");
+      }
       dispatch(setPopup({
         message: err.message,
         type: "danger"

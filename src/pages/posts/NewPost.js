@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { setPopup } from "../../reducers/popupSlice";
+import { resetAuthUser } from "../../reducers/sessionSlice";
 // APIs
 import AuthAPI from "../../apis/AuthAPI";
 import PostAPI from "../../apis/PostAPI";
@@ -59,6 +60,11 @@ const NewPost = () => {
         }
       })
       .catch(err => {
+        if(err.message === "Invalid session") {
+          // Reset authenticated user state
+          dispatch(resetAuthUser());
+          navigate("/");
+        }
         dispatch(setPopup({
           message: err.message,
           type: "danger"
