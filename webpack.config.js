@@ -10,6 +10,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
+      favicon: path.join(__dirname, "public", "paper-plane.png"),
       template: path.join(__dirname, "public", "index.html"),
     }),
   ],
@@ -48,7 +49,15 @@ module.exports = {
           "style-loader",
           "css-loader"
         ]
-      }
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
+      },
     ],
   },
   // pass all js files through Babel
