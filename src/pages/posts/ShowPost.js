@@ -285,8 +285,8 @@ const ShowPost = () => {
   } else {
     return (
       <Container id="showPost">
-        <Row>
-          <Col id="showPost-sec-1" sm={ 12 } md={ 6 }>
+        <Row id="showPost-row-1">
+          <Col id="showPost-sec-1" sm={ 12 } md={ 6 } lg={ 5 }>
             <div id="showPost-header">
               <h1>{ post.title }</h1>
               <div className="showPost-header-desc">{ post.desc }</div>
@@ -319,7 +319,7 @@ const ShowPost = () => {
             </div>
           </Col>
 
-          <Col id="showPost-sec-2" sm={ 12 } md={ 6 }>
+          <Col id="showPost-sec-2" sm={ 12 } md={ 6 } lg={ 5 }>
             <div id="showPost-comments">
               {authUser &&
                 <CommentForm

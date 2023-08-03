@@ -201,8 +201,8 @@ const Profile = () => {
   } else {
     return (
       <Container id="profile">
-        <Row>
-          <Col id="profile-sec-1" sm={ 12 } md={ 6 }>
+        <Row id="profile-row-1">
+          <Col id="profile-sec-1" sm={ 12 } md={ 6 } lg={ 5 }>
             <div id="profile-header">
               <h1>{ user.username }</h1>
               <div className="profile-header-date">{ new Date(user.createdAt).toDateString() }</div>
@@ -232,7 +232,7 @@ const Profile = () => {
             </div>
           </Col>
 
-          <Col id="profile-sec-2" sm={ 12 } md={ 6 }>
+          <Col id="profile-sec-2" sm={ 12 } md={ 6 } lg={ 5 }>
             <Table id="profile-stats" striped bordered  size="sm">
               <tbody>
                 <tr>
@@ -256,8 +256,8 @@ const Profile = () => {
           </Col>
         </Row>
 
-        <Row>
-          <Col id="profile-sec-3">
+        <Row id="profile-row-2">
+          <Col id="profile-sec-3" sm={ 12 } md={ 10 } lg={ 8 }>
             <div id="profile-posts-wrapper">
               <h2>Posts</h2>
               {pageContent.length > 0 && <PostsDisplay posts={ pageContent } />}
