@@ -22,8 +22,9 @@ module.exports = {
     historyApiFallback: true,
     proxy: {
       "/api": {
-        target: "http://localhost:3000",
-        router: () => "http://localhost:5050"
+        target: "https://blog-app-2-server.onrender.com",
+        secure: false,
+        changeOrigin: true
       }
     }
   },
