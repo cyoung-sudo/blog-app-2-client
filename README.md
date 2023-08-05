@@ -31,7 +31,7 @@ Builds the app for production to the `build` folder.
 ## Built With
 
 - HTML
-- CSS
+- SCSS
 - Javascript
 - React
 
@@ -39,3 +39,4 @@ Builds the app for production to the `build` folder.
 
 - Used webpack instead of create-react-app
 - Used bootstrap
+- Used SCSS instead of CSS
