@@ -2,8 +2,8 @@ import axios from "axios";
 
 // Initialize axios instance with custom configs
 const api = axios.create({
-  withCredentials: true,
-  headers: { "Custom-Language": "en" }
+  headers: { "Custom-Language": "en" },
+  baseURL: "https://blog-app-2-server.onrender.com"
 });
 
 export default api;

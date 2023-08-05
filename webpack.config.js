@@ -6,7 +6,7 @@ module.exports = {
   output: {
     filename: "main.js",
     path: path.resolve(__dirname, "build"),
-    publicPath: "/"
+    publicPath: "/blog-app-2-client/"
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -19,14 +19,7 @@ module.exports = {
       directory: path.join(__dirname, "build"),
     },
     port: 3000,
-    historyApiFallback: true,
-    proxy: {
-      "/api": {
-        target: "https://blog-app-2-server.onrender.com",
-        secure: false,
-        changeOrigin: true
-      }
-    }
+    historyApiFallback: true
   },
   module: {
     // exclude node_modules
