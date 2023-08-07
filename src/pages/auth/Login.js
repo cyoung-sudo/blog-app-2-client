@@ -48,7 +48,7 @@ const Login = () => {
           navigate(`/users/${ res.data.user._id }`);
         } else {
           dispatch(setPopup({
-            message: res.data.message,
+            message: "Failed to login",
             type: "danger"
           }));
         }

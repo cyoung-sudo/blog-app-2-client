@@ -45,7 +45,7 @@ const Signup = () => {
           navigate("/login");
         } else {
           dispatch(setPopup({
-            message: res.data.message,
+            message: "Failed to create account",
             type: "danger"
           }));
         }
