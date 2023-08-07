@@ -1,4 +1,4 @@
-import api from "./configs/axiosConfig";
+import { api, baseURL } from "./configs/axiosConfig";
 
 const FollowAPI = {
   //----- Toggle follow
@@ -9,7 +9,8 @@ const FollowAPI = {
         followerId,
         followedId
       },
-      url: "/api/follows"
+      url: "/api/follows",
+      baseURL
     });
 
     return res;
@@ -19,7 +20,8 @@ const FollowAPI = {
   getForFollower: async userId => {
     const res = await api.request({
       method: "GET",
-      url: `/api/follows/follower/${ userId }`
+      url: `/api/follows/follower/${ userId }`,
+      baseURL
     });
 
     return res;
@@ -29,7 +31,8 @@ const FollowAPI = {
   getForFollowed: async userId => {
     const res = await api.request({
       method: "GET",
-      url: `/api/follows/followed/${ userId }`
+      url: `/api/follows/followed/${ userId }`,
+      baseURL
     });
 
     return res;

@@ -1,4 +1,4 @@
-import api from "./configs/axiosConfig";
+import { api, baseURL } from "./configs/axiosConfig";
 
 const LikeAPI = {
   //----- Toggle like
@@ -9,7 +9,8 @@ const LikeAPI = {
         userId,
         postId
       },
-      url: "/api/likes"
+      url: "/api/likes",
+      baseURL
     });
 
     return res;
@@ -19,7 +20,8 @@ const LikeAPI = {
   getAllForPost: async postId => {
     const res = await api.request({
       method: "GET",
-      url: `/api/likes/post/${ postId }`
+      url: `/api/likes/post/${ postId }`,
+      baseURL
     });
 
     return res;
@@ -29,7 +31,8 @@ const LikeAPI = {
   getAllForUser: async userId => {
     const res = await api.request({
       method: "GET",
-      url: `/api/likes/user/${ userId }`
+      url: `/api/likes/user/${ userId }`,
+      baseURL
     });
 
     return res;

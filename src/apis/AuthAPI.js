@@ -1,4 +1,4 @@
-import api from "./configs/axiosConfig";
+import { api, baseURL } from "./configs/axiosConfig";
 
 const AuthAPI = {
   //----- Login user
@@ -9,7 +9,8 @@ const AuthAPI = {
         username,
         password
       },
-      url: "/api/auth/login"
+      url: "/api/auth/login",
+      baseURL
     });
 
     return res;
@@ -19,7 +20,8 @@ const AuthAPI = {
   logout: async () => {
     const res = await api.request({
       method: "DELETE",
-      url: "/api/auth/logout"
+      url: "/api/auth/logout",
+      baseURL
     });
 
     return res;
@@ -29,7 +31,8 @@ const AuthAPI = {
   getAuthUser: async () => {
     const res = await api.request({
       method: "GET",
-      url: "/api/auth/authUser"
+      url: "/api/auth/authUser",
+      baseURL
     });
 
     return res;

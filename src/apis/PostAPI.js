@@ -1,11 +1,12 @@
-import api from "./configs/axiosConfig";
+import { api, baseURL } from "./configs/axiosConfig";
 
 const PostAPI = {
   //----- Retrieve all posts
   getAll: async () => {
     const res = await api.request({
       method: "GET",
-      url: "/api/posts"
+      url: "/api/posts",
+      baseURL
     });
 
     return res;
@@ -20,7 +21,8 @@ const PostAPI = {
         title,
         desc
       },
-      url: "/api/posts"
+      url: "/api/posts",
+      baseURL
     });
 
     return res;
@@ -30,7 +32,8 @@ const PostAPI = {
   getPost: async id => {
     const res = await api.request({
       method: "GET",
-      url: `/api/posts/${ id }`
+      url: `/api/posts/${ id }`,
+      baseURL
     });
 
     return res;
@@ -40,7 +43,8 @@ const PostAPI = {
   deletePost: async id => {
     const res = await api.request({
       method: "DELETE",
-      url: `/api/posts/${ id }`
+      url: `/api/posts/${ id }`,
+      baseURL
     });
 
     return res;
@@ -50,7 +54,8 @@ const PostAPI = {
   getAllForUser: async userId => {
     const res = await api.request({
       method: "GET",
-      url: `/api/posts/user/${ userId }`
+      url: `/api/posts/user/${ userId }`,
+      baseURL
     });
 
     return res;

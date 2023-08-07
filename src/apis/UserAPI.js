@@ -1,11 +1,12 @@
-import api from "./configs/axiosConfig";
+import { api, baseURL } from "./configs/axiosConfig";
 
 const UserAPI = {
   //----- Retrieve all users
   getAll: async () => {
     const res = await api.request({
       method: "GET",
-      url: "/api/users"
+      url: "/api/users",
+      baseURL
     });
 
     return res;
@@ -19,7 +20,8 @@ const UserAPI = {
         username,
         password
       },
-      url: "/api/users"
+      url: "/api/users",
+      baseURL
     });
 
     return res;
@@ -29,7 +31,8 @@ const UserAPI = {
   getUser: async id => {
     const res = await api.request({
       method: "GET",
-      url: `/api/users/${ id }`
+      url: `/api/users/${ id }`,
+      baseURL
     });
 
     return res;
@@ -39,7 +42,8 @@ const UserAPI = {
   deleteUser: async id => {
     const res = await api.request({
       method: "DELETE",
-      url: `/api/users/${ id }`
+      url: `/api/users/${ id }`,
+      baseURL
     });
 
     return res;

@@ -1,4 +1,4 @@
-import api from "./configs/axiosConfig";
+import { api, baseURL } from "./configs/axiosConfig";
 
 const DislikeAPI = {
   //----- Toggle dislike
@@ -9,7 +9,8 @@ const DislikeAPI = {
         userId,
         postId
       },
-      url: "/api/dislikes"
+      url: "/api/dislikes",
+      baseURL
     });
 
     return res;
@@ -19,7 +20,8 @@ const DislikeAPI = {
   getAllForPost: async postId => {
     const res = await api.request({
       method: "GET",
-      url: `/api/dislikes/post/${ postId }`
+      url: `/api/dislikes/post/${ postId }`,
+      baseURL
     });
 
     return res;
@@ -29,7 +31,8 @@ const DislikeAPI = {
   getAllForUser: async userId => {
     const res = await api.request({
       method: "GET",
-      url: `/api/dislikes/user/${ userId }`
+      url: `/api/dislikes/user/${ userId }`,
+      baseURL
     });
 
     return res;

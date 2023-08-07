@@ -2,7 +2,7 @@ import "./Profile.scss";
 // React
 import { useState, useEffect } from "react";
 // Routing
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 // Redux
 import { useSelector, useDispatch } from "react-redux";
 import { setPopup } from "../../reducers/popupSlice";
@@ -57,6 +57,7 @@ const Profile = () => {
   const [refresh, setRefresh] = useState(false);
   // Hooks
   const { id } = useParams();
+  const navigate = useNavigate();
   const { authUser } = useSelector(state => state.session);
   const dispatch = useDispatch();
 

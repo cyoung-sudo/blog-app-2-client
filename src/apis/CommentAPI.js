@@ -1,4 +1,4 @@
-import api from "./configs/axiosConfig";
+import { api, baseURL } from "./configs/axiosConfig";
 
 const CommentAPI = {
   //----- Create comment
@@ -10,7 +10,8 @@ const CommentAPI = {
         postId,
         text
       },
-      url: "/api/comments"
+      url: "/api/comments",
+      baseURL
     });
 
     return res;
@@ -20,7 +21,8 @@ const CommentAPI = {
   getForPost: async postId => {
     const res = await api.request({
       method: "GET",
-      url: `/api/comments/post/${ postId }`
+      url: `/api/comments/post/${ postId }`,
+      baseURL
     });
 
     return res;
@@ -30,7 +32,8 @@ const CommentAPI = {
   getAllForUser: async userId => {
     const res = await api.request({
       method: "GET",
-      url: `/api/comments/user/${ userId }`
+      url: `/api/comments/user/${ userId }`,
+      baseURL
     });
 
     return res;
