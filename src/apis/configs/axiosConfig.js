@@ -6,4 +6,5 @@ export const api = axios.create({
 });
 
 // Alternative to proxying
-export const baseURL = "https://blog-app-2-server.onrender.com";
+// export const baseURL = "https://blog-app-2-server.onrender.com";
+export const baseURL = "";
