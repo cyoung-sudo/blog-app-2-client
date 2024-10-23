@@ -7,3 +7,18 @@
   padding-top: var(--navigationBar-height); // NavigationBar height
   padding-bottom: var(--footer-height); // Footer height
 }
+
+#app-loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#app-loading > p {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 300;
+  font-style: italic;
+}

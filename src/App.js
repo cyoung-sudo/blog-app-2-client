@@ -24,7 +24,6 @@ import Settings from "./pages/settings/Settings";
 import NavigationBar from "./components/navigation/NavigationBar";
 import Footer from "./components/navigation/Footer";
 import Popup from "./components/messages/Popup";
-import Loading from "./components/static/Loading";
 // Utils
 import ProtectedRoute from "./utils/ProtectedRoute";
 
@@ -51,10 +50,10 @@ const App = () => {
 
   return (
     <div id="app">
-      <NavigationBar />
-      <div id="app-content">
-        <Popup />
-        {!loading &&
+      {!loading && <>
+        <NavigationBar />
+        <div id="app-content">
+          <Popup />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="login" element={<Login />} />
@@ -84,14 +83,15 @@ const App = () => {
               </ProtectedRoute>
             )} />
           </Routes>
-        }
+        </div>
+        <Footer />
+      </>}
 
-        {loading && 
-          <Loading
-            message="Checking for valid session"/>
-        }
-      </div>
-      <Footer />
+      {loading && <div id="app-loading">
+        <h1>Loading...</h1>
+        <p>Waking up server</p>
+        <p>Could take a minute :)</p>
+      </div>}
     </div>
   );
 }
